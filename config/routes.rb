@@ -1,4 +1,9 @@
 ImmediateShare::Application.routes.draw do
+  resources :users do
+    member do
+      post "change_admin"
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
