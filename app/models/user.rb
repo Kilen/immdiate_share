@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validates :password, :confirmation => true
   validates :password_confirmation, :presence => true,
-            :if => :hashed_password_blank?
+            :if => "self.hashed_password == nil" 
   validates :email, :email_format => true, :presence => true
 
   attr_accessor :password_confirmation
@@ -34,8 +34,5 @@ class User < ActiveRecord::Base
   def self.encrypted_password pwd, salt
     string = pwd + salt
     return Digest::SHA1::hexdigest(string)
-  end
-  def hashed_password_blank?
-    return self.hashed_password == nil
   end
 end

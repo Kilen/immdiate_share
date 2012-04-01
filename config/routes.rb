@@ -1,7 +1,11 @@
 ImmediateShare::Application.routes.draw do
-  resources :users do
-    member do
-      post "change_admin"
+  scope :module => "admin" do
+    scope "/admin" do
+      resources :users do
+        member do
+          put "change_admin"
+        end
+      end
     end
   end
   # The priority is based upon order of creation:
