@@ -1,0 +1,14 @@
+<h3>Log in</h3>
+<hr />
+<%= form_for(@user, :url => login_path) do |f|%>
+  <%= render(:partial => "shared/form_errors", :object => @user) %>
+  <p>
+    <%= f.label(:name, "name: ") %>
+    <%= f.text_field(:name) %>
+  </p>
+  <p>
+    <%= f.label(:password, "password: ") %>
+    <%= f.text_field(:password) %>
+  </p>
+  <%= f.submit("login") %>
+<% end %>

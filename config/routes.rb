@@ -1,4 +1,10 @@
 ImmediateShare::Application.routes.draw do
+  match "gate(/index)" => "gate#index", :via => :get, :as => :gate
+  post "gate/login", :as => :login
+  post "gate/logout", :as => :logout
+  get "gate/register", :as => :register
+  post "gate/create"
+
   scope :module => "admin" do
     scope "/admin" do
       resources :users do

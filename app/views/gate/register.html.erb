@@ -1,0 +1,6 @@
+<h3>Please input your info</h3>
+<hr />
+<%= render("shared/form", 
+           {:handle_path => {:action => "create"},
+            :method => :post,
+            :button_name => "register"}) %>
