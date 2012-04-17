@@ -1,0 +1,7 @@
+<%= form_for(@share_text, :url => texts_path) do |f|%>
+  Content:<br />
+  <%= f.text_area(:content) %><br />
+  URL:<%= f.text_field(:url) %>
+  <%= f.hidden_field(:type, :value => "text") %><br />
+  <%= f.submit("share") %>
+<% end %>

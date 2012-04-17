@@ -14,6 +14,10 @@ class UserSession
     @session[:user_id] = nil
   end
 
+  def current_user
+    return User.find_by_id(@session[:user_id])
+  end
+
   def is_user?
     if @session[:user_id]
       return true

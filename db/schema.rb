@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120401074723) do
+ActiveRecord::Schema.define(:version => 20120417071330) do
 
   create_table "messages", :force => true do |t|
     t.text     "content"
@@ -18,6 +18,28 @@ ActiveRecord::Schema.define(:version => 20120401074723) do
     t.integer  "to"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "recieves_and_tos", :force => true do |t|
+    t.integer  "share_info_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "share_infos", :force => true do |t|
+    t.integer  "from"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "url"
+  end
+
+  create_table "share_texts", :force => true do |t|
+    t.integer  "share_info_id"
+    t.text     "content"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

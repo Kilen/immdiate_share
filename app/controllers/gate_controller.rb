@@ -39,7 +39,7 @@ class GateController < ApplicationController
   private
 
   def is_user?(person)
-    if User.authenticate(person[:name],person[:password])
+    if User.authenticate?(person[:name],person[:password])
       return true
     else
       return false

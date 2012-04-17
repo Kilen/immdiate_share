@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  has_many :shares, :class_name => "ShareInfo", :dependent => :destroy
+  has_many :recieves_and_tos, :dependent => :destroy
+  has_many :recieves, :class_name => "ShareInfo", 
+           :through => :recieves_and_tos, :source => :share_info
   attr_accessible :name, :password, :password_confirmation, :email
   validates :name, :presence => true, :uniqueness => true
   validates :password, :confirmation => true

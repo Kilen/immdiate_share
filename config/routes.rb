@@ -14,6 +14,14 @@ ImmediateShare::Application.routes.draw do
       end
     end
   end
+
+  resources :share_infos
+
+  scope :module => "share_infos" do
+    scope "/share_infos" do
+      resources :share_text, :as => "texts"
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

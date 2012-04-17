@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_filter :authenticate
   # GET /users
   # GET /users.json
   def index
@@ -94,6 +95,15 @@ class Admin::UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def authenticate
+    unless user_session.is_admin?()
+      flash[:error] = "Sorry, pal, you have to be admin to scan this page, perhaps you may want to user your admin account to log in"
+      redirect_to(gate_path)
     end
   end
 end

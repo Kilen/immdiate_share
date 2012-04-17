@@ -1,0 +1,2 @@
+module ShareInfo::ShareTextsHelper
+end
