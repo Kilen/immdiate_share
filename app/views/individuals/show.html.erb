@@ -1,0 +1,20 @@
+<%= page_title("#{@current_user.name}'s profile") %>
+<%= render("shared/flash_info") %>
+<ul>
+	<li>name: <%= @current_user.name %></li>
+	<li>email: <%= @current_user.email %></li>
+</ul>
+<%= link_to 'Edit', edit_individual_path(@current_user) %>
+<hr />
+
+<h4>Here are your friends:</h4>
+(<%= link_to("find more friends", friendships_path) %>)
+<% for friendship in @friendships do %>
+  <ul>
+    <li>
+      <%= friendship.friend.name %>
+      (<%= link_to("delete", friendship_path(friendship), :method => :delete,
+                   :confirm => "are you sure to destroy this relationship?") %>)
+    </li>
+  </ul>
+<% end %>

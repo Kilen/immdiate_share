@@ -7,7 +7,7 @@ class GateController < ApplicationController
     if is_user?(params[:user])
       flash[:success] = "welcome, #{params[:user][:name]}"
       user_session.hello(params[:user][:name])
-      uri = session[:original_uri] || root_path()
+      uri = session[:original_url] || root_path()
       redirect_to(uri)
     else
       flash[:error] = "the combination of name and password error"

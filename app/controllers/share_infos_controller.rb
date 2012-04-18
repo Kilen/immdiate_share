@@ -4,10 +4,7 @@ class ShareInfosController < ApplicationController
   # GET /share_infos.json
   def index
     @user = user_session.current_user()
-    unless @user
-      flash[:error] = "Sorry, can't find your record, please login again"
-      redirect_to(gate_path)
-    end
+    login_first() unless @user
     @share_infos = @user.shares
     @recieve_infos = @user.recieves
   end

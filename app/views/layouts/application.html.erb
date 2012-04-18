@@ -7,6 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if @current_user %>
+    <%= @current_user.name %>|
+    <%= link_to("logout",logout_path,:method => :post) %>|
+    <%= link_to("view profile", individual_path(@current_user)) %>
+  <% else %>
+    You haven't login yet|<%= link_to("login", gate_path) %>
+  <% end %>
   <%= render(:partial => "shared/flash_info") %>
 <%= yield %>
 
