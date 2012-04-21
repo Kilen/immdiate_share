@@ -1,5 +1,5 @@
 ImmediateShare::Application.routes.draw do
-  root :to => "share_infos#index"
+  root :to => 'share_infos#index'
 
   match "gate(/index)" => "gate#index", :via => :get, :as => :gate
   post "gate/login", :as => :login
@@ -25,7 +25,11 @@ ImmediateShare::Application.routes.draw do
     end
   end
 
-  resources :friendships
+  resources :friendships do
+    collection do
+      get "search"
+    end
+  end
   resources :individuals
   # The priority is based upon order of creation:
   # first created -> highest priority.

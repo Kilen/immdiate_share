@@ -1,18 +1,10 @@
 class ShareInfosController < ApplicationController
-#  before_filter :authenticate
+  before_filter :authenticate
   # GET /share_infos
   # GET /share_infos.json
   def index
-    @user = user_session.current_user()
-    login_first() unless @user
-    @share_infos = @user.shares
-    @recieve_infos = @user.recieves
-  end
-
-  # GET /share_infos/1
-  # GET /share_infos/1.json
-  def show
-    @share_info = ShareInfo.find(params[:id])
+    @share_infos = @current_user.shares
+    @recieve_infos = @current_user.recieves
   end
 
   # GET /share_infos/new
@@ -20,25 +12,20 @@ class ShareInfosController < ApplicationController
   def new
     @share_info = ShareInfo.new
   end
-
-  # GET /share_infos/1/edit
-  def edit
-    @share_info = ShareInfo.find(params[:id])
-  end
-
+  
   # POST /share_infos
   # POST /share_infos.json
   def create
-    @share_info = ShareInfo.new(params[:share_info])
-
-    respond_to do |format|
-      if @share_info.save
-        format.html { redirect_to @share_info, :notice => 'Share info was successfully created.' }
-        format.json { render :json => @share_info, :status => :created, :location => @share_info }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @share_info.errors, :status => :unprocessable_entity }
-      end
+    share_info = params[:share_info]
+    @share_info = ShareInfo.new(share_info)
+    @share_info.from_user = @current_user
+    @share_info.send_to_friends(@current_user, params[:friend_ids])
+    if @share_info.save()
+      flash[:success] = "successfully shared with your friends"
+      redirect_to(share_infos_path)
+    else
+      flash[:error] = "faild to share with your friends"
+      render(new_text_path)
     end
   end
 
@@ -73,9 +60,6 @@ class ShareInfosController < ApplicationController
   private
 
   def authenticate
-    unless user_session.is_user?()
-      flash[:error] = "Sorry, pal, you really need to login to access this page" 
-      redirect_to(gate_path)
-    end
+    login_first() unless user_session.is_user?()
   end
 end

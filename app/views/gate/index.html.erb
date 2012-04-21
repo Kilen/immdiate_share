@@ -1,5 +1,4 @@
-<h3>Log in</h3>
-<hr />
+<%= page_title("Login") %>
 <%= form_for(@user, :url => login_path) do |f|%>
   <%= render(:partial => "shared/form_errors", :object => @user) %>
   <p>

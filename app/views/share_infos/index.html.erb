@@ -1,0 +1,23 @@
+<%= page_title("Your Share List") %>
+
+<%= link_to("new share", new_share_info_path ) %>
+<h4>Shares from friends:</h4>
+<hr />
+<% if @recieve_infos.blank? %>
+  <p>
+  	<b>No share at the moment...</b>
+  </p>
+<% else %>
+  <%= render("share_text_recieved") %>
+<% end %>
+
+
+<h4>Shares from you:</h4>
+<hr />
+<% if @share_infos.blank? %>
+  <p>
+  	<b>No share at the moment...</b>
+  </p>
+<% else %>
+  <%= render("share_text_by_you") %>
+<% end %>

@@ -4,6 +4,9 @@ class Friendship < ActiveRecord::Base
   before_save :save_inverse_friendship
   before_destroy :destroy_inverse_friendship
 
+  validates :friend_id, :presence => true
+  validates :user_id, :presence => true
+
   private 
   def save_inverse_friendship
     inverse_friendship = Friendship.new(:user_id => friend_id,

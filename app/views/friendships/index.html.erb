@@ -1,28 +1,20 @@
 <%= page_title("Search Friends") %>
 
-<table>
-  <tr>
-    <th>name</th>
-    <th>relationship</th>
-    <th>function</th>
-  </tr>
-
-<% @user.each do |user| %>
-  <tr>
-    <% unless @current_user.id == user.id %>
-      <td><%= user.name %></td>
-      <% if @current_user.friends.include?(user) %>
-        <td>friend</td>
-        <td><%= button_to("add", friendships_path(:friend_id => user.id), 
-                          :disabled => true) %></td>
-      <% else %>
-        <td>stranger</td>
-        <td><%= button_to("add", friendships_path(:friend_id => user.id))%></td>
-      <% end %>
-    <% end %>
-  </tr>
+<div id="search">
+  <%= form_tag(search_friendships_path, :method => :get) do %>
+    Search: <%=text_field_tag("user_name", "user name")  %>
+    <%= submit_tag("search", :name => nil) %>
+  <% end %>
+</div>
+<% if @users.blank? %>
+  <h4>Sorry, no record has been found</h4>
+<% else %>
+  <%= render("user_list") %>
 <% end %>
-</table>
+
+<% if @is_search_result %>
+  <%= link_to("Go back to all users", friendships_path) %>
+<% end %>
 
 <br />
 

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   
   def login_first
     flash[:error] = "Sorry, you have to login to access this page"
-    session[:original_url] = request.url
+    session[:original_uri] = request.original_fullpath
     redirect_to(gate_path)
   end
   

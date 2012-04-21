@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
-    @user = User.all
+    @users = User.all
     login_first() unless @current_user
   end
 
@@ -17,7 +17,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:error] = "failed to add"
     end
-    redirect_to(friendships_path)
+    redirect_to(flash[:original_uri] || friendships_path)
   end
 
   # DELETE /friendships/1
@@ -31,5 +31,14 @@ class FriendshipsController < ApplicationController
       flash[:error] = "Delete failed, if you really want, please try again"
     end
     redirect_to(individual_path(@current_user))
+  end
+
+  def search
+    login_first() unless @current_user
+    @is_search_result = true
+    @users = User.find(:all, 
+              :conditions=>["users.name like ?", "%#{params[:user_name]}%"])
+    flash[:original_uri] = request.original_fullpath
+    render(:action => "index")
   end
 end

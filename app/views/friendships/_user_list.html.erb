@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th>name</th>
+    <th>relationship</th>
+    <th>function</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <% unless @current_user.id == user.id %>
+      <td><%= user.name %></td>
+      <% if @current_user.friends.include?(user) %>
+        <td>friend</td>
+        <td><%= button_to("add", friendships_path(:friend_id => user.id), 
+                          :disabled => true) %></td>
+      <% else %>
+        <td>stranger</td>
+        <td><%= button_to("add", friendships_path(:friend_id => user.id))%></td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</table>

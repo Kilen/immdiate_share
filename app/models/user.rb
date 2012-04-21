@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-  has_many :shares, :class_name => "ShareInfo", :dependent => :destroy
+  has_many :shares, :class_name => "ShareInfo", :dependent => :destroy,
+           :foreign_key => :from
   has_many :recieves_and_tos, :dependent => :destroy
-  has_many :recieves, :class_name => "ShareInfo", 
+  has_many :recieves,
            :through => :recieves_and_tos, :source => :share_info
   has_many :friendships, :dependent => :destroy
   has_many :friends, :through => :friendships
@@ -26,10 +27,11 @@ class User < ActiveRecord::Base
   def self.authenticate? name, pwd
     user = User.find_by_name(name)
     res = false
-    res = false unless user
-    hashed_password = User.encrypted_password(pwd, user.salt)
-    if hashed_password == user.hashed_password
-      res = true
+    if user
+      hashed_password = User.encrypted_password(pwd, user.salt)
+      if hashed_password == user.hashed_password
+        res = true
+      end
     end
     return res
   end

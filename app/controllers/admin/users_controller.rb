@@ -88,7 +88,7 @@ class Admin::UsersController < ApplicationController
   def authenticate
     unless user_session.is_admin?()
       flash[:error] = "Sorry, pal, you have to be admin to scan this page, perhaps you may want to user your admin account to log in"
-      session[:original_url] = request.url
+      session[:original_uri] = request.original_fullpath
       redirect_to(gate_path)
     end
   end
