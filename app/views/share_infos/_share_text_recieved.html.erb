@@ -1,11 +1,10 @@
-<% for share_recieved in @recieve_infos do%>
-  <p>Content: <%= share_recieved.share_text.content %></p>
-  <p>
-    Share by: <%= share_recieved.from_user.name %> 
-    <%= share_recieved.created_at %>
-  </p>
-  <p>Original link: <%= share_recieved.url %></p>
-  <br />
-  --------------------------------------
-  <br />
-<% end %>
+<%=render("shared/share_text_content", {:share_to_or_share_by=>"share by", 
+          :share=>share_text_recieved})%>
+<%= link_to("Comment", 
+            new_comment_path(:share_info_id=>share_text_recieved.id))%>
+<br />
+            
+<%=render(:partial=>"shared/comment",
+          :collection=>share_text_recieved.comments) %>
+--------------------------------------
+<br />

@@ -6,6 +6,7 @@ class ShareInfo < ActiveRecord::Base
   has_many :to_users, :class_name => "User", 
            :through => :user_addresses, :source => :user,
            :uniq => true
+  has_many :comments
 
   attr_accessible :share_type, :url, :content
   validates_associated :share_text

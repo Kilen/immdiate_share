@@ -1,83 +1,46 @@
 class CommentsController < ApplicationController
-  # GET /comments
-  # GET /comments.json
-  def index
-    @comments = Comment.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @comments }
-    end
-  end
-
-  # GET /comments/1
-  # GET /comments/1.json
-  def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @comment }
-    end
-  end
-
+  before_filter :authenticate
   # GET /comments/new
   # GET /comments/new.json
   def new
-    @comment = Comment.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @comment }
+    @comment = Comment.new()
+    @share_info = ShareInfo.find(params[:share_info_id])
+    unless @share_info
+      flash[:error] = "comment error, no such id for share"
+      redirect_to(:back)
     end
-  end
-
-  # GET /comments/1/edit
-  def edit
-    @comment = Comment.find(params[:id])
   end
 
   # POST /comments
   # POST /comments.json
   def create
     @comment = Comment.new(params[:comment])
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, :notice => 'Comment was successfully created.' }
-        format.json { render :json => @comment, :status => :created, :location => @comment }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @comment.errors, :status => :unprocessable_entity }
+    @comment.author = @current_user
+    @comment.share_info_id = params[:share_info][:id]
+    if is_share_info_id_valid?(params[:share_info]) && @comment.save()
+      flash[:success] = "comment successfully"
+      redirect_to(share_infos_path)
+    else
+      flash[:error] = "failed to comment, please try again"
+      @share_info = ShareInfo.find_by_id(params[:share_info][:id])
+      unless @share_info
+        flash[:error] = "Invalid share info id"
+        redirect_to(share_infos_path)
       end
+      render(:action=>"new")
     end
   end
 
-  # PUT /comments/1
-  # PUT /comments/1.json
-  def update
-    @comment = Comment.find(params[:id])
+  private
 
-    respond_to do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to @comment, :notice => 'Comment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @comment.errors, :status => :unprocessable_entity }
-      end
-    end
+  def authenticate
+    login_first() unless user_session.is_user?
   end
-
-  # DELETE /comments/1
-  # DELETE /comments/1.json
-  def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to comments_url }
-      format.json { head :no_content }
+  def is_share_info_id_valid? target_share
+    expected_share = ShareInfo.find_by_id(target_share[:id])
+    if expected_share && target_share[:from] == expected_share.from.to_s
+      return true
     end
+    return false
   end
 end

@@ -1,0 +1,13 @@
+<%= form_for(@reply, :url=>replies_path) do |f| %>
+  <%= render(:partial=>"shared/form_errors", :object=>@reply) %>
+  your reply:
+  <br />
+  <%= f.text_area(:content) %>
+  <br />
+  <%= fields_for(@comment, :index=>nil) do |comment| %>
+      <%= comment.hidden_field(:id) %>
+      <%= comment.hidden_field(:user_id) %>
+  <% end %>
+  <br />
+  <%= f.submit %>
+<% end %>

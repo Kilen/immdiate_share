@@ -1,0 +1,16 @@
+<div class="comment">
+  <p>
+    <div class="comment_auther"><b><%= comment.author.name %></b></div> at 
+    <div class="comment_date"><b><%= comment.created_at %></b> says:</div>
+  </p>
+  <div class="comment_content">
+    <p><%= comment.content %></p>
+  </div>
+</div>
+<% no_reply_link ||= false %>
+<% unless no_reply_link %>
+  <%= link_to("reply to #{comment.author.name}", 
+      new_reply_path(:comment_id => comment.id)) %>
+<% end %>
+<br />
+

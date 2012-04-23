@@ -31,6 +31,8 @@ ImmediateShare::Application.routes.draw do
     end
   end
   resources :individuals
+  resources :comments, :only =>[:new, :create]
+  resources :replies, :only =>[:new, :create]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

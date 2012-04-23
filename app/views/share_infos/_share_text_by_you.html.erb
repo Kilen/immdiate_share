@@ -1,14 +1,8 @@
-<% for share_info in @share_infos do%>
-  <p>Content: <%= share_info.share_text.content %></p>
-  <p>
-    Share to:  
-    <%for user in share_info.to_users do %>
-      <%= "#{user.name} " %>
-    <% end %>
-    <%= share_info.created_at %>
-  </p>
-  <p>Original link: <%= share_info.url %></p>
-  <br />
-  --------------------------------------
-  <br />
-<% end %>
+<%= render("shared/share_text_content",{:share_to_or_share_by=>"share to",
+           :share=>share_text_by_you})%>
+<%= link_to("Comment", new_comment_path(:share_info_id=>share_text_by_you.id))%>
+<br />
+<%= render(:partial=>"shared/comment", 
+          :collection => share_text_by_you.comments) %>
+--------------------------------------
+<br />

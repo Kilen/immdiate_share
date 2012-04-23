@@ -1,0 +1,15 @@
+<p>Content: <%= share.share_text.content %></p>
+<p>
+  <%= share_to_or_share_by %>
+  <% if share_to_or_share_by == "share to" %>
+    <%for user in share.to_users do %>
+      :<%= "#{user.name} " %>
+    <% end %>
+  <% end %>
+  <% if share_to_or_share_by == "share by" %>
+    :<%= share.from_user.name %>
+  <% end %>
+  <%= share.created_at %>
+</p>
+<p>Original link: <%= share.url %></p>
+<br />

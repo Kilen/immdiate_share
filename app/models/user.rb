@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
            :through => :recieves_and_tos, :source => :share_info
   has_many :friendships, :dependent => :destroy
   has_many :friends, :through => :friendships
+  has_many :comments
+  has_many :replies
 
   attr_accessible :name, :password, :password_confirmation, :email
   validates :name, :presence => true, :uniqueness => true

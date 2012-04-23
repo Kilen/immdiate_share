@@ -8,7 +8,8 @@
   	<b>No share at the moment...</b>
   </p>
 <% else %>
-  <%= render("share_text_recieved") %>
+  <%= render(:partial => "share_text_recieved", 
+             :collection => @recieve_infos)%>
 <% end %>
 
 
@@ -19,5 +20,6 @@
   	<b>No share at the moment...</b>
   </p>
 <% else %>
-  <%= render("share_text_by_you") %>
+  <%= render(:partial => "share_text_by_you",
+             :collection => @share_infos) %>
 <% end %>
