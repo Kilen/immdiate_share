@@ -1,9 +1,6 @@
 class ShareInfos::ShareTextController < ApplicationController
-  # GET /share_info/share_texts
-  # GET /share_info/share_texts.json
-  def index
-    @share_info_share_texts = ShareInfo::ShareText.all
-  end
+  #before_filter :get_current_user, :authenticate, :get_system_message 
+  #(in application_controller)
 
   # GET /share_info/share_texts/new
   # GET /share_info/share_texts/new.json

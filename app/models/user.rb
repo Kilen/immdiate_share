@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   has_many :friends, :through => :friendships
   has_many :comments
   has_many :replies
+  has_many :system_message_sendeds, :class_name => "SystemMessage", 
+           :foreign_key => :from
+  has_many :system_message_recieveds, :class_name => "SystemMessage",
+           :foreign_key => :to
 
   attr_accessible :name, :password, :password_confirmation, :email
   validates :name, :presence => true, :uniqueness => true
@@ -36,6 +40,14 @@ class User < ActiveRecord::Base
       end
     end
     return res
+  end
+  def self.exit? id
+    user = User.find_by_id(id)
+    if user
+      return true
+    else
+      return false
+    end
   end
 
   private

@@ -10,7 +10,6 @@ class ShareInfo < ActiveRecord::Base
 
   attr_accessible :share_type, :url, :content
   validates_associated :share_text
-  validates :url, :presence => true
   validate :user_address_validator, :before => :create
   validate :type_validator
 

@@ -1,4 +1,5 @@
 class GateController < ApplicationController
+  skip_before_filter :authenticate, :get_unread_system_message
   def index
     @user = User.new()
   end

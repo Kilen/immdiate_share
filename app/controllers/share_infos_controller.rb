@@ -1,5 +1,7 @@
 class ShareInfosController < ApplicationController
-  before_filter :authenticate
+  #before_filter :get_current_user, :authenticate, :get_unread_system_message
+  #(in application_controller)
+
   # GET /share_infos
   # GET /share_infos.json
   def index
@@ -22,6 +24,7 @@ class ShareInfosController < ApplicationController
     @share_info.send_to_friends(@current_user, params[:friend_ids])
     if @share_info.save()
       flash[:success] = "successfully shared with your friends"
+      create_share_messages_to_friends(@current_user.id, params[:friend_ids])
       redirect_to(share_infos_path)
     else
       flash[:error] = "faild to share with your friends"
@@ -29,37 +32,12 @@ class ShareInfosController < ApplicationController
     end
   end
 
-  # PUT /share_infos/1
-  # PUT /share_infos/1.json
-  def update
-    @share_info = ShareInfo.find(params[:id])
-
-    respond_to do |format|
-      if @share_info.update_attributes(params[:share_info])
-        format.html { redirect_to @share_info, :notice => 'Share info was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @share_info.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /share_infos/1
-  # DELETE /share_infos/1.json
-  def destroy
-    @share_info = ShareInfo.find(params[:id])
-    @share_info.destroy
-
-    respond_to do |format|
-      format.html { redirect_to share_infos_url }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
-  def authenticate
-    login_first() unless user_session.is_user?()
+  def create_share_messages_to_friends current_user_id, friend_ids
+    friend_ids.each do |friend_id|
+      SystemMessage.create_message(@current_user.id, friend_id.to_i,
+                                   "share")
+    end
   end
 end

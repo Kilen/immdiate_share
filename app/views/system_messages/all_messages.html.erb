@@ -1,0 +1,25 @@
+<h4>unread messages:</h4>
+<% if @unread_system_messages.blank? %>
+  <h5>you have no unread message</h5>
+<% else %>
+  <%= render(:partial=>"message_recieved", 
+             :collection=>@unread_system_messages) %>
+<% end %>
+ 
+=============================================
+<h4>messages you recieved:</h4>
+<% if @system_messages_recieved.blank? %>
+  <h5>you do not have any messages yet</h5>
+<% else %>
+  <%= render(:partial=>"message_recieved", 
+             :collection=>@system_messages_recieved) %>
+<% end %>
+
+=============================================
+<h4>messages you sended:</h4>
+<% if @system_messages_sended.blank? %>
+  <h5>you do not send any messages yet</h5>
+<% else %>
+  <%= render(:partial=>"message_sended", 
+             :collection=>@system_messages_sended) %>
+<% end %>

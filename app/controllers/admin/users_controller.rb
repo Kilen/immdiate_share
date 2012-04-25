@@ -1,5 +1,8 @@
 class Admin::UsersController < ApplicationController
-  before_filter :authenticate
+  #before_filter :get_current_user, :get_system_message (in application_controller)
+  skip_before_filter :authenticate
+  before_filter :admin_authenticate
+  
   # GET /users
   # GET /users.json
   def index
@@ -85,7 +88,7 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def authenticate
+  def admin_authenticate
     unless user_session.is_admin?()
       flash[:error] = "Sorry, pal, you have to be admin to scan this page, perhaps you may want to user your admin account to log in"
       session[:original_uri] = request.original_fullpath

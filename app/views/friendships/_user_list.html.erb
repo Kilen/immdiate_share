@@ -11,11 +11,11 @@
       <td><%= user.name %></td>
       <% if @current_user.friends.include?(user) %>
         <td>friend</td>
-        <td><%= button_to("add", friendships_path(:friend_id => user.id), 
+        <td><%= button_to("add", ask_friendship_path(:id => user.id), 
                           :disabled => true) %></td>
       <% else %>
         <td>stranger</td>
-        <td><%= button_to("add", friendships_path(:friend_id => user.id))%></td>
+        <td><%= button_to("add", ask_friendship_path(:id => user.id))%></td>
       <% end %>
     <% end %>
   </tr>

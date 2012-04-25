@@ -10,10 +10,13 @@
   <% if @current_user %>
     <%= @current_user.name %>|
     <%= link_to("logout",logout_path,:method => :post) %>|
-    <%= link_to("view profile", individual_path(@current_user)) %>
+    <%= link_to("view profile", individual_path(@current_user)) %>|
+    <%= link_to("message(#{@unread_system_messages.length})", 
+                system_messages_path)%>
   <% else %>
     You haven't login yet|<%= link_to("login", gate_path) %>
   <% end %>
+  |<%= link_to("home", share_infos_path) %>
   <%= render(:partial => "shared/flash_info") %>
 <%= yield %>
 

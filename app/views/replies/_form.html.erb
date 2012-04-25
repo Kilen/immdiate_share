@@ -5,9 +5,10 @@
   <%= f.text_area(:content) %>
   <br />
   <%= fields_for(@comment, :index=>nil) do |comment| %>
-      <%= comment.hidden_field(:id) %>
-      <%= comment.hidden_field(:user_id) %>
+    <%= comment.hidden_field(:id, :name=>"comment[id]") %>
+    <%= comment.hidden_field(:user_id, :name=>"comment[user_id]") %>
   <% end %>
+  <%= hidden_field_tag(:target_type, @target_type) %>
   <br />
   <%= f.submit %>
 <% end %>

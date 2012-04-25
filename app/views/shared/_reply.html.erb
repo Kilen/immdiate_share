@@ -1,0 +1,19 @@
+<div class="reply">
+  <p>
+    <div class="reply_auther"><b>
+      <% if reply.author == @current_user %>
+        you
+      <% else %>
+        <%= reply.author.name %>
+      <% end %>
+    </b></div> at 
+    <div class="reply_date"><b><%= reply.created_at %></b> says:</div>
+  </p>
+  <div class="reply_content">
+    <p><%= reply.content %></p>
+  </div>
+</div>
+<% unless @current_user == reply.author%>
+  <%= link_to("reply to #{reply.author.name}", 
+      new_reply_path(:comment_id=>reply.id, :target_type=>"reply")) %>
+<% end %>

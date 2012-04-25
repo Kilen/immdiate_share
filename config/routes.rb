@@ -21,7 +21,7 @@ ImmediateShare::Application.routes.draw do
 
   scope :module => "share_infos" do
     scope "/share_infos" do
-      resources :share_text, :as => "texts"
+      resources :share_text, :as => "texts", :only =>[:new]
     end
   end
 
@@ -29,10 +29,22 @@ ImmediateShare::Application.routes.draw do
     collection do
       get "search"
     end
+    member do
+      post "ask_for_friendship", :as => :ask
+      post "agree_with_friendship", :as => :agree
+    end
   end
   resources :individuals
   resources :comments, :only =>[:new, :create]
   resources :replies, :only =>[:new, :create]
+  resources :system_messages, :only => [:index], :path_names => {:index => "unread"} do
+    collection do
+      get "all_messages", :as => :all
+    end
+    member do
+      post "ignore"
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
