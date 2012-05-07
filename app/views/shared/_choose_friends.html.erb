@@ -1,0 +1,17 @@
+<b>choose friends you want to share with:</b><br />
+-----------------------------------------<br />
+<div class="row">
+  <div class="nine columns">
+    <table style="border-width:0px">
+      <tr>
+      <% @current_user.friends.each.with_index do |friend, index| %>
+          <% if index !=0 && index % 5 == 0 then%> </tr><tr> <%end%>
+          <td width="50px">
+            <label><%= check_box_tag("friend_ids[]",friend.id) %><%= friend.name %></label>
+          </td>
+      <% end %>
+      </tr>
+    </table>
+  </div>
+  <div class="three columns"></div>
+</div>

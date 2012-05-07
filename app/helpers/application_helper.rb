@@ -5,4 +5,14 @@ module ApplicationHelper
       tag(:hr)
     end
   end
+  def menu_item_available_if condition, text, path
+    if condition
+      html = "<li>"
+    else
+      html = "<li class=\"unavailable\">"
+    end
+    html << link_to(text,path)
+    html << "</li>"
+    return html.html_safe
+  end
 end

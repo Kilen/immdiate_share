@@ -1,11 +1,17 @@
-<%= form_for(@comment, :url=>comments_path) do |f| %>
-  content: 
-  <br />
-  <%= f.text_area(:content) %>
-  <%= fields_for(@share_info, :index=>nil) do |share| %>
-    <%= share.hidden_field(:id) %>
-    <%= share.hidden_field(:from) %>
-  <% end %>
-  <br />
-  <%= f.submit %>
-<% end %>
+<div class="row">
+  <div class="one column"></div>
+  <div class="eleven columns">
+    <%= form_for(@comment, :url=>comments_path,
+                 :html=>{:class=>"nice"}) do |f| %>
+      <%= f.label(:content) %>
+      <%= f.text_area(:content, :rows=>8, :style=>"width:100%", 
+                      :class=>"input-text") %>
+      <%= fields_for(@share_info, :index=>nil) do |share| %>
+        <%= share.hidden_field(:id) %>
+        <%= share.hidden_field(:from) %>
+      <% end %>
+      <br />
+      <%= f.submit("comment",:class=>"nice black button radius") %>
+    <% end %>
+  </div>
+</div>

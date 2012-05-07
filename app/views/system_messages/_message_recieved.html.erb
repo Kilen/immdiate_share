@@ -1,10 +1,12 @@
-<% msg = "#{message_recieved.from_user.name} #{system_message_interpreter(message_recieved.message_type)} you at #{message_recieved.created_at}"%>
-<%= msg %>
-<% unless message_recieved.is_read? %>
-  <%= button_to("agree", agree_friendship_path(:id=>message_recieved.from,
-                                          :message_id=>message_recieved.id)) %>
-  <%= button_to("ignore", 
-                ignore_system_message_path(:id=>message_recieved.id))%>
-<% end %>
-<br />
-
+<div class=<%= system_message_class %>>
+  <% msg = "#{message_recieved.from_user.name} #{system_message_interpreter(message_recieved.message_type)} you at #{message_recieved.created_at}"%>
+  <%= msg %>
+  <% unless message_recieved.is_read? %>
+    <%= button_to("agree", agree_friendship_path(:id=>message_recieved.from,
+                  :message_id=>message_recieved.id),
+                  :class=>"nice black button radius") %>
+    <%= button_to("ignore", 
+                  ignore_system_message_path(:id=>message_recieved.id),
+                  :class=>"nice black button radius")%>
+  <% end %>
+</div>

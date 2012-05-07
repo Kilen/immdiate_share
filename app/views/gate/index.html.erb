@@ -1,13 +1,15 @@
 <%= page_title("Login") %>
-<%= form_for(@user, :url => login_path) do |f|%>
+<%= form_for(@user, :url => login_path, :html=>{:class=>"nice"}) do |f|%>
   <%= render(:partial => "shared/form_errors", :object => @user) %>
-  <p>
-    <%= f.label(:name, "name: ") %>
-    <%= f.text_field(:name) %>
-  </p>
-  <p>
-    <%= f.label(:password, "password: ") %>
-    <%= f.password_field(:password) %>
-  </p>
-  <%= f.submit("login") %>
+  <%= f.label(:name, "Name: ") %>
+  <%= f.text_field(:name, :class=>"input-text") %>
+  <br />
+  <%= f.label(:password, "Password: ") %>
+  <%= f.password_field(:password, :class=>"input-text") %>
+  <br />
+  <%= f.submit("login",:class=>"nice radius white button") %>
 <% end %>
+<br />
+<hr />
+You do not have an account? Don't worry, click
+<%= link_to( "here to register", register_path, :class=>"small white button") %>

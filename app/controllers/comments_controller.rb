@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
       SystemMessage.create_message(@current_user.id, 
                                    params[:share_info][:from].to_i,
                                    "comment")
-      redirect_to(share_infos_path)
+      redirect_to(share_infos_path+"#share_by_you")
     else
       flash[:error] = "failed to comment, please try again"
       @share_info = ShareInfo.find_by_id(params[:share_info][:id])

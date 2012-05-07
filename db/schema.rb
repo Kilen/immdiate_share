@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423011454) do
+ActiveRecord::Schema.define(:version => 20120507022803) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -50,12 +50,23 @@ ActiveRecord::Schema.define(:version => 20120423011454) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "share_images", :force => true do |t|
+    t.integer  "share_info_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.text     "description"
+    t.string   "website_url"
+  end
+
   create_table "share_infos", :force => true do |t|
     t.integer  "from"
     t.string   "share_type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "url"
   end
 
   create_table "share_texts", :force => true do |t|
@@ -63,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20120423011454) do
     t.text     "content"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "website_url"
   end
 
   create_table "system_messages", :force => true do |t|

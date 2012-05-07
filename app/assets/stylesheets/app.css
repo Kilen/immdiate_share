@@ -1,0 +1,151 @@
+/* Foundation v2.2.1 http://foundation.zurb.com */
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: share
+:: comment
+:: reply
+:: system message
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+
+
+/* -----------------------------------------
+   share
+----------------------------------------- */
+.share{
+  padding: 3% 3% 3% 3%;
+  margin-top: 1%;
+  border: thin dotted #C6C6C6;
+}
+.share_author{
+  font: caption;
+}
+strong{
+  color: blue;
+}
+.share_content{
+  font-family:微软雅黑;
+  background-color: #F7F7F7;
+  border: thin solid #EDEDED;
+  padding: 2% 1% 2% 2%; 
+  margin-bottom: 2%;
+}
+.share_link{
+  font-family:arial;
+  text-decoration:underline;
+  text-align: center;
+  font-size:8px;
+  color:#B4B4B4;
+  margin-top: 1%;
+}
+.share_date{
+  margin-top: 1%;
+  text-align:center;
+  font-size:8px;
+  color:#B4B4B4;
+}
+.comment_button{
+  text-align: right;
+}
+.share_button{
+  float:right;
+}
+
+
+
+
+
+/* -----------------------------------------
+   comment
+----------------------------------------- */
+.comment{
+  border: thin dotted #90F5C0;
+}
+.comment_inside_frame{
+  padding: 2% 2% 2% 2%;
+}
+.comment_author{
+  font: small-caption;
+}
+strong{
+  color: blue;
+}
+.comment_content{
+  font-family:微软雅黑;
+  background-color: #F7F7F7;
+  border: thin solid #EDEDED;
+  padding: 2% 1% 2% 2%; 
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+.comment_link{
+  font-family:arial;
+  text-decoration:underline;
+  margin-top: 1%;
+}
+.comment_date{
+  text-align:center;
+  font-size:8px;
+  color:#B4B4B4;
+}
+.reply_button{
+  text-align:right;
+}
+
+
+/* -----------------------------------------
+   reply
+----------------------------------------- */
+.reply{
+  margin-bottom: 2%;
+  border-top: thin dotted black;
+}
+.reply_inside_frame{
+  padding: 2% 2% 2% 2%;
+}
+.reply_author{
+}
+.reply_content{
+  font-family:微软雅黑;
+  background-color: #F7F7F7;
+  border: thin solid #EDEDED;
+  padding: 2% 1% 2% 2%; 
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+.reply_date{
+  font-size:8px;
+  color:#B4B4B4;
+}
+.reply_link{
+  text-decoration: underline;
+  text-align:right;
+  color:black;
+  font-weight: bold;
+}
+
+/* -----------------------------------------
+   system message
+----------------------------------------- */
+.system_messages_wrapper{
+  padding: 2% 2% 2% 2%;
+
+  margin: 1% 4% 3% 4%;
+  border-bottom: thin dotted black;
+}
+.system_message{
+  padding-bottom: 1%;
+}
+.unread_system_message{
+  padding-bottom: 1%;
+}
+
+

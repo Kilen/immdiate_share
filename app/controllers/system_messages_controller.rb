@@ -9,11 +9,11 @@ class SystemMessagesController < ApplicationController
 
   def all_messages
     mark_all_messages_read(@unread_system_messages)
-    @system_messages_recieved = @current_user.system_message_recieveds
+    @system_messages_recieved = @current_user.system_message_recieveds.find(:all,:order=>"created_at DESC")
     @system_messages_recieved = @system_messages_recieved.reject do |msg|
       @unread_system_messages.include?(msg)
     end
-    @system_messages_sended = @current_user.system_message_sendeds
+    @system_messages_sended = @current_user.system_message_sendeds.find(:all,:order=>"created_at DESC")
   end
 
   def ignore

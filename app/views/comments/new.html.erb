@@ -1,6 +1,15 @@
-<h1>New comment</h1>
-
-<%= render("shared/share_text_content", {:share_to_or_share_by=>"",
-           :share=>@share_info}) %>
+<%= page_title("Comment") %>
+<% case @share_info.share_type %>
+<% when "text": %>
+  <%= render("shared/share_text_content", {:share=>@share_info, 
+             :is_button_disable=>true}) %>
+<% when "image": %>
+  <%= render("shared/share_image_content", {:share=>@share_info, 
+             :is_button_disable=>true}) %>
+<% else %>
+  error, no such type of share
+<% end %>
+----------------------------------------------------------------------
+<br />
 <%= render 'form' %>
 

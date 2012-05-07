@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_unread_system_message
-    @unread_system_messages = @current_user.system_message_recieveds
+    @unread_system_messages = @current_user.system_message_recieveds.find(:all,:order=>"created_at DESC")
     @unread_system_messages = @unread_system_messages.reject  do |msg| 
       msg.is_read? == true
     end

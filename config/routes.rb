@@ -17,15 +17,17 @@ ImmediateShare::Application.routes.draw do
     end
   end
 
-  resources :share_infos
+  resources :share_infos, :only => [:index, :new]
 
+  match "share_infos/share_images/upload" => "share_infos/share_images#upload", :as=>:upload
   scope :module => "share_infos" do
     scope "/share_infos" do
-      resources :share_text, :as => "texts", :only =>[:new]
+      resources :share_texts, :as => :texts, :only =>[:new, :create]
+      resources :share_images, :as => :images, :only => [:new, :create, :show]
     end
   end
 
-  resources :friendships do
+  resources :friendships, :only => [:index, :destroy] do
     collection do
       get "search"
     end
@@ -34,7 +36,7 @@ ImmediateShare::Application.routes.draw do
       post "agree_with_friendship", :as => :agree
     end
   end
-  resources :individuals
+  resources :individuals, :only => [:show, :edit, :update]
   resources :comments, :only =>[:new, :create]
   resources :replies, :only =>[:new, :create]
   resources :system_messages, :only => [:index], :path_names => {:index => "unread"} do

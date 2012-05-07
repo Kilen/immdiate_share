@@ -1,5 +1,6 @@
 <%= page_title("System Message") %>
-<%= render(:partial=>"message_recieved", 
+<%= render(:partial=>"message_recieved",
+           :locals=>{:system_message_class=>"unread_system_message"},
            :collection=>@unread_system_messages) %>
 <br />
            

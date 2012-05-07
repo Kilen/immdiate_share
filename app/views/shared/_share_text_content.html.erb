@@ -1,15 +1,18 @@
-<p>Content: <%= share.share_text.content %></p>
-<p>
-  <%= share_to_or_share_by %>
-  <% if share_to_or_share_by == "share to" %>
-    <%for user in share.to_users do %>
-      :<%= "#{user.name} " %>
-    <% end %>
+<div class="share_content"><%= share.share_text.content %></div>
+<ul class="block-grid three-up">
+  <li class="share_date">
+    <%= share.created_at %>
+  </li>
+  <li class="share_link">
+  <%= link_to(share.share_text.website_url,
+              "http://#{share.share_text.website_url}/") %>
+  </li>
+  <% is_button_disable ||= false %>
+  <% unless is_button_disable%>
+    <li class="comment_button">
+      <%= link_to("Comment", 
+                  new_comment_path(:share_info_id=>share.id),
+                  :class=>"white nice button radius")%>
+    </li>
   <% end %>
-  <% if share_to_or_share_by == "share by" %>
-    :<%= share.from_user.name %>
-  <% end %>
-  <%= share.created_at %>
-</p>
-<p>Original link: <%= share.url %></p>
-<br />
+</ul>

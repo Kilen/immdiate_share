@@ -1,0 +1,59 @@
+H:/SWED/Ruby187/bin/ruby.exe extconf.rb 
+creating Makefile
+
+make
+gcc -I. -I/H/SWED/Ruby187/lib/ruby/1.8/i386-mingw32 -I/H/SWED/Ruby187/lib/ruby/1.8/i386-mingw32 -I.   -g -O3 -DFD_SETSIZE=256   -Wall  -c parser.c
+../fbuffer/fbuffer.h:129:13: warning: 'fbuffer_append_long' defined but not used
+../fbuffer/fbuffer.h:136:17: warning: 'fbuffer_dup' defined but not used
+../fbuffer/fbuffer.h:149:14: warning: 'fbuffer_to_s' defined but not used
+../fbuffer/fbuffer.h:90:13: warning: 'fbuffer_append_str' defined but not used
+gcc -shared -s -o parser.so parser.o -L. -LH:/SWED/Ruby187/lib -L. -LC:\\Users\\Luis\\Projects\\oss\\oneclick\\rubyinstaller\\sandbox\\tk\\lib -LC:\\Users\\Luis\\Projects\\oss\\oneclick\\rubyinstaller\\sandbox\\tcl\\lib -LC:\\Users\\Luis\\Projects\\oss\\oneclick\\rubyinstaller\\sandbox\\pdcurses\\lib -LC:\\Users\\Luis\\Projects\\oss\\oneclick\\rubyinstaller\\sandbox\\openssl\\lib -LC:\\Users\\Luis\\Projects\\oss\\oneclick\\rubyinstaller\\sandbox\\zlib\\lib -LC:\\Users\\Luis\\Projects\\oss\\oneclick\\rubyinstaller\\sandbox\\iconv\\lib -LC:\\Users\\Luis\\Projects\\oss\\oneclick\\rubyinstaller\\sandbox\\gdbm\\lib  -Wl,--enable-auto-image-base,--enable-auto-import,--export-all   -lmsvcrt-ruby18  -lshell32 -lws2_32  
+
+make install
+install -d D:/work/immediate_share/imagemagick/ruby/1.8/gems/json-1.7.0/ext/json/ext/json/ext
+This program sets up the installation of Vim 7.3
+
+Inspecting system...
+Got unknown argument argv[1] = -d
+Vim installer non-interactive command line arguments:
+
+-create-batfiles  [vim gvim evim view gview vimdiff gvimdiff]
+    Create .bat files for Vim variants in the Windows directory.
+-create-vimrc
+    Create a default _vimrc file if one does not already exist.
+-install-popup
+    Install the Edit-with-Vim context menu entry
+-install-openwith
+    Add Vim to the "Open With..." context menu list
+-add-start-menu    Add Vim to the start menu
+-install-icons    Create icons for gVim executables on the desktop
+-create-directories [vim|home]
+    Create runtime directories to drop plugins into; in the $VIM
+    or $HOME directory
+-register-OLE    Ignored
+
+Got unknown argument argv[2] = D:/work/immediate_share/imagemagick/ruby/1.8/gems/json-1.7.0/ext/json/ext/json/ext
+Vim installer non-interactive command line arguments:
+
+-create-batfiles  [vim gvim evim view gview vimdiff gvimdiff]
+    Create .bat files for Vim variants in the Windows directory.
+-create-vimrc
+    Create a default _vimrc file if one does not already exist.
+-install-popup
+    Install the Edit-with-Vim context menu entry
+-install-openwith
+    Add Vim to the "Open With..." context menu list
+-add-start-menu    Add Vim to the start menu
+-install-icons    Create icons for gVim executables on the desktop
+-create-directories [vim|home]
+    Create runtime directories to drop plugins into; in the $VIM
+    or $HOME directory
+-register-OLE    Ignored
+
+Creating an uninstall entry
+
+--- Attempting to register Vim with OLE ---
+(There is no message whether this works or not.)
+/usr/bin/install -c -m 0755 parser.so D:/work/immediate_share/imagemagick/ruby/1.8/gems/json-1.7.0/ext/json/ext/json/ext
+/usr/bin/install: cannot create regular file `D:/work/immediate_share/imagemagick/ruby/1.8/gems/json-1.7.0/ext/json/ext/json/ext': No such file or directory
+make: *** [D:/work/immediate_share/imagemagick/ruby/1.8/gems/json-1.7.0/ext/json/ext/json/ext/parser.so] Error 1

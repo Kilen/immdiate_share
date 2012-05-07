@@ -1,17 +1,22 @@
-<%= page_title("#{@current_user.name}'s profile") %>
+<%= page_title("#{@user.name}'s profile") %>
 <ul>
-	<li>name: <%= @current_user.name %></li>
-	<li>email: <%= @current_user.email %></li>
+	<li>name: <%= @user.name %></li>
+	<li>email: <%= @user.email %></li>
 </ul>
-<%= link_to 'Edit', edit_individual_path(@current_user) %>
+<% if @current_user == @user %>
+  <%= link_to 'Edit', edit_individual_path(@user), 
+    :class=>"nice black button" %>
+<% end %>
 <hr />
 
-<h4>Here are your friends:</h4>
-(<%= link_to("find more friends", friendships_path) %>)
+<h5>your friends:</h5>
+(<%= link_to("find more friends", friendships_path) %>)<br/>
+-------------------------------
 <% for friendship in @friendships do %>
   <ul>
     <li>
-      <%= friendship.friend.name %>
+    <%= link_to("#{friendship.friend.name}", 
+                individual_path(friendship.friend), :method=>:get) %>
       (<%= link_to("delete", friendship_path(friendship), :method => :delete,
                    :confirm => "are you sure to destroy this relationship?") %>)
     </li>

@@ -1,25 +1,48 @@
-<h4>unread messages:</h4>
-<% if @unread_system_messages.blank? %>
-  <h5>you have no unread message</h5>
-<% else %>
-  <%= render(:partial=>"message_recieved", 
-             :collection=>@unread_system_messages) %>
-<% end %>
- 
-=============================================
-<h4>messages you recieved:</h4>
-<% if @system_messages_recieved.blank? %>
-  <h5>you do not have any messages yet</h5>
-<% else %>
-  <%= render(:partial=>"message_recieved", 
-             :collection=>@system_messages_recieved) %>
-<% end %>
+<%= page_title("System message") %>
+<div class="system_messages_wrapper">
+  <div class="row">
+    <h4>unread messages:</h4>
+    <div class="one column"></div>
+    <div class="eleven columns">
+      <% if @unread_system_messages.blank? %>
+        <h5>you have no unread message</h5>
+      <% else %>
+        <%= render(:partial=>"message_recieved", 
+                   :locals=>{:system_message_class=>"unread_system_message"},
+                   :collection=>@unread_system_messages) %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-=============================================
-<h4>messages you sended:</h4>
-<% if @system_messages_sended.blank? %>
-  <h5>you do not send any messages yet</h5>
-<% else %>
-  <%= render(:partial=>"message_sended", 
-             :collection=>@system_messages_sended) %>
-<% end %>
+<div class="system_messages_wrapper">
+  <div class="row">
+    <h4>messages you recieved:</h4>
+    <div class="one column"></div>
+    <div class="eleven columns">
+      <% if @system_messages_recieved.blank? %>
+        <h5>you do not have any messages yet</h5>
+      <% else %>
+        <%= render(:partial=>"message_recieved", 
+                   :locals=>{:system_message_class=>"system_message"},
+                   :collection=>@system_messages_recieved) %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="system_messages_wrapper">
+  <div class="row">
+  <h4>messages you sended:</h4>
+    <div class="one column"></div>
+    <div class="eleven columns">
+      <% if @system_messages_sended.blank? %>
+        <h5>you do not send any messages yet</h5>
+      <% else %>
+        <%= render(:partial=>"message_sended", 
+                   :locals=>{:system_message_class=>"system_message"},
+                   :collection=>@system_messages_sended) %>
+      <% end %>
+    </div>
+  </div>
+</div>

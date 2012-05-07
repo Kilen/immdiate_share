@@ -1,19 +1,29 @@
-<div class="reply">
-  <p>
-    <div class="reply_auther"><b>
-      <% if reply.author == @current_user %>
-        you
-      <% else %>
-        <%= reply.author.name %>
-      <% end %>
-    </b></div> at 
-    <div class="reply_date"><b><%= reply.created_at %></b> says:</div>
-  </p>
-  <div class="reply_content">
-    <p><%= reply.content %></p>
+<div class="row">
+  <div class="one columns"></div>
+  <div class="eleven columns">
+    <div class="reply">
+      <div class="reply_inside_frame">
+        <div class="reply_auther">
+          <% if reply.author == @current_user %>
+            <strong>you</strong> replied
+          <% else %>
+            <strong><%= reply.author.name %></strong> replied
+          <% end %>
+        </div> 
+        <div class="reply_content">
+          <p><%= reply.content %></p>
+        </div>
+        <ul class="block-grid two-up">
+          <li class="reply_date"><%= reply.created_at %></li>
+          <% unless @current_user == reply.author%>
+            <li class="reply_link">
+              <%= link_to("reply to #{reply.author.name}", 
+                           new_reply_path(:comment_id=>reply.id, 
+                          :target_type=>"reply"))%>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
-<% unless @current_user == reply.author%>
-  <%= link_to("reply to #{reply.author.name}", 
-      new_reply_path(:comment_id=>reply.id, :target_type=>"reply")) %>
-<% end %>

@@ -1,25 +1,33 @@
 <%= page_title("Your Share List") %>
 
-<%= link_to("new share", new_share_info_path ) %>
-<h4>Shares from friends:</h4>
-<hr />
-<% if @recieve_infos.blank? %>
-  <p>
-  	<b>No share at the moment...</b>
-  </p>
-<% else %>
-  <%= render(:partial => "share_text_recieved", 
-             :collection => @recieve_infos)%>
-<% end %>
+<div class="share_button">
+  <%= link_to("new share", new_share_info_path, 
+              :class=>"large nice black button round" ) %>
+</div>
+<dl class="tabs contained">
+	<dd><a href="#share_from_friend">Shares from friends</a></dd>
+  <dd><a href="#share_by_you">Shares by you</a></dd>
+</dl>
+<ul class="tabs-content contained">
+	<li id="share_from_friendTab" class="active">
+    <% if @recieve_infos.blank? %>
+      <p>
+        <b>No share at the moment...</b>
+      </p>
+    <% else %>
+      <%= render(:partial => "share", 
+                 :collection => @recieve_infos)%>
+    <% end %>
+	</li>
+  <li id="share_by_youTab">
+    <% if @share_infos.blank? %>
+      <p>
+        <b>No share at the moment...</b>
+      </p>
+    <% else %>
+      <%= render(:partial => "share",
+                 :collection => @share_infos) %>
+    <% end %>
+  </li>
+</ul>
 
-
-<h4>Shares from you:</h4>
-<hr />
-<% if @share_infos.blank? %>
-  <p>
-  	<b>No share at the moment...</b>
-  </p>
-<% else %>
-  <%= render(:partial => "share_text_by_you",
-             :collection => @share_infos) %>
-<% end %>

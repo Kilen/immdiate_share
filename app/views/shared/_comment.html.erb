@@ -1,25 +1,36 @@
-<div class="comment">
-  <p>
-    <div class="comment_auther"><b>
-      <% if comment.author == @current_user %>
-        you
-      <% else %>
-        <%= comment.author.name %>
-      <% end %>
-    </b></div> at 
-    <div class="comment_date"><b><%= comment.created_at %></b> says:</div>
-  </p>
-  <div class="comment_content">
-    <p><%= comment.content %></p>
+<div class="row">
+  <div class="one column"></div>
+  <div class="eleven column">
+    <div class="comment">
+      <div class="comment_inside_frame">
+        <div class="comment_author">
+          <% if comment.author == @current_user %>
+            <strong>you </strong> commented
+          <% else %>
+            <strong><%= comment.author.name %></strong> commented
+          <% end %>
+        </div> 
+        <div class="comment_content">
+          <%= comment.content %>
+        </div>
+        <ul class="block-grid two-up">
+          <li class="comment_date"><%= comment.created_at %></li>
+        <% no_reply ||= false %>
+        <% unless no_reply %>
+          <% unless @current_user == comment.author %>
+            <li class="reply_link">
+              <%= link_to("reply to #{comment.author.name}", 
+                           new_reply_path(:comment_id => comment.id, 
+                          :target_type=>"comment"))%>
+            </li>
+          <% end %>
+          <%= render(:partial=>"shared/reply", 
+                     :collection=>comment.replies) %>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+    <br />
   </div>
 </div>
-<% no_reply ||= false %>
-<% unless no_reply %>
-  <% unless @current_user == comment.author %>
-    <%= link_to("reply to #{comment.author.name}", 
-        new_reply_path(:comment_id => comment.id, :target_type=>"comment")) %>
-  <% end %>
-  <%= render(:partial=>"shared/reply", :collection=>comment.replies) %>
-<% end %>
-<br />
 

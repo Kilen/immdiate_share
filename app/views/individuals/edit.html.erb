@@ -1,6 +1,16 @@
 <h1>Editing individual</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @individual %> |
-<%= link_to 'Back', individuals_path %>
+<%= form_for(@user, :url=>individual_path(:user.id),
+             :html=>{:class=>"nice"}) do |f|%>
+  <%= render(:partial=>"shared/form_errors",:object=>@user) %>
+  <%= f.label(:name) %>
+  <%= f.text_field(:name, :class=>"input-text") %>
+  <%= f.label(:password) %>
+  <%= f.password_field(:password, :class=>"input-text") %>
+  <%= f.label(:password_confirmation) %>
+  <%= f.password_field(:password_confirmation, :class=>"input-text") %>
+  <%= f.label(:email) %>
+  <%= f.text_field(:email, :class=>"input-text") %>
+  <br /> <br />
+  <%= f.submit("update", :class=>"nice black button radius") %>
+<% end %>

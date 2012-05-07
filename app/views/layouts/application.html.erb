@@ -2,23 +2,49 @@
 <html>
 <head>
   <title>ImmediateShare</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "foundation","ie","application", :media => "all" %>
+  <%= javascript_include_tag "jquery.min", "foundation",
+      "modernizr.foundation", "app", "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if @current_user %>
-    <%= @current_user.name %>|
-    <%= link_to("logout",logout_path,:method => :post) %>|
-    <%= link_to("view profile", individual_path(@current_user)) %>|
-    <%= link_to("message(#{@unread_system_messages.length})", 
-                system_messages_path)%>
-  <% else %>
-    You haven't login yet|<%= link_to("login", gate_path) %>
-  <% end %>
-  |<%= link_to("home", share_infos_path) %>
+  <div class="container">
+  	<div class="row">
+      <div class="two columns"></div>
+      <div class="seven columns">
+        <ul class="breadcrumbs">
+          <%= menu_item_available_if(@current_user,"HOME",
+                                     share_infos_path)%>
+          <%= menu_item_available_if(@current_user,"PROFILE",
+                                 individual_path(@current_user||1)) %>
+          <% text = "MESSAGE" %>
+          <% if @current_user %>
+            <% text << "(#{@unread_system_messages.length})" %>
+          <% end %>
+          <%= menu_item_available_if(@current_user, text,
+                                     system_messages_path) %>
+          <%= menu_item_available_if(@current_user,"FRIENDS",
+                                     friendships_path) %>
+        </ul>
+      </div>
+      <div class="three columns">
+        <% if @current_user %>
+          <%= @current_user.name %>
+          |<%= link_to("logout",logout_path,:method => :post) %>
+          |<%=link_to("view profile",individual_path(@current_user)) %>
+        <% else %>
+          You haven't login yet |<%= link_to("login", gate_path) %>
+        <% end %>
+      </div>
+  	</div>
+  </div>
   <%= render(:partial => "shared/flash_info") %>
-<%= yield %>
+
+  <div class="container">
+  	<div class="row">
+  		<div class="eight columns centered"> <%= yield %></div>
+  	</div>
+  </div>
 
 </body>
 </html>

@@ -1,0 +1,35 @@
+<div class="share">
+  <div class="row">
+    <div class="twelve columns">
+      <div class="share_author">
+        <% if share.from_user == @current_user %>
+          <strong>you</strong> shared
+        <% else %>
+          <strong><%= share.from_user.name %></strong> shared
+        <% end %>
+      </div>
+
+      <% case share.share_type %>
+      <% when "text": %>
+        <%=render("shared/share_text_content", 
+                  {:share=>share})%>
+      <% when "image": %>
+        <%=render("shared/share_image_content",{:share=>share}) %>
+      <% else %>
+        <%= "error, no such share type"  %>
+      <% end %>
+
+
+      <%=render(:partial=>"shared/comment",
+                :collection=>share.comments) %>
+      <% if @current_user == share.from_user %>
+        <p>
+        share to:
+        <%for user in share.to_users do %>
+          <%= "#{user.name} " %>
+        <% end %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

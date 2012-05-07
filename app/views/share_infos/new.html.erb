@@ -1,5 +1,36 @@
-<h3>Share</h3>
-<hr />
-<%= link_to("share text", new_text_path) %>
-<%= link_to("share picture")%>
-<%= link_to("share vedio")  %>
+<%= page_title("Choose your share type") %>
+<ul class="block-grid three-up">
+  <li class="share_type_link">
+    <h5>
+      <%= link_to(new_text_path) do %>
+        "click to share text"
+        <%= image_tag("share_type_text.png", :width=>"200", :height=>"200") %>
+      <% end %>
+    </h5>
+    <div class="share_description">
+      you can share plain text here
+    </div>
+  </li>
+  <li class="share_type_link">
+    <h5>
+      <%= link_to(new_image_path) do %>
+        "click to share image"
+        <%= image_tag("share_type_picture.png", :width=>"200", :height=>"200") %>
+      <% end %>
+    </h5>
+    <div class="share_description">
+      you can share a photo with your friends
+    </div>
+  </li>
+  <li class="share_type_link">
+    <h5>
+      <%= link_to(new_text_path) do %>
+        "click to share vedio"
+        <%= image_tag("share_type_vedio.png", :width=>"200", :height=>"200") %>
+      <% end %>
+    </h5>
+    <div class="share_description">
+      you can share a interesting video here
+    </div>
+  </li>
+</ul>
