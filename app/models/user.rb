@@ -12,13 +12,20 @@ class User < ActiveRecord::Base
            :foreign_key => :from
   has_many :system_message_recieveds, :class_name => "SystemMessage",
            :foreign_key => :to
+  has_one :temp, :dependent => :destroy
 
-  attr_accessible :name, :password, :password_confirmation, :email
   validates :name, :presence => true, :uniqueness => true
   validates :password, :confirmation => true
   validates :password_confirmation, :presence => true,
             :if => "self.hashed_password == nil" 
   validates :email, :email_format => true, :presence => true
+  validates :avatar_file_name, :presence => true
+
+  attr_accessible :name, :password, :password_confirmation, :email,
+                  :avatar_file_name
+  
+  before_create :get_random_system_default_avatar
+
 
   attr_accessor :password_confirmation
   def password
@@ -50,6 +57,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  #where avatar store
+  def self.dirname
+    return Rails.root.join("public","assets","avatar").to_s
+  end
+  def avatar_url
+    return "avatar/" + self.avatar_file_name
+  end
+  def self.system_default_avatar_num
+    return 12
+  end
+
+
   private
   def create_new_salt
     self.salt = self.object_id.to_s + rand.to_s
@@ -57,5 +76,11 @@ class User < ActiveRecord::Base
   def self.encrypted_password pwd, salt
     string = pwd + salt
     return Digest::SHA1::hexdigest(string)
+  end
+  def get_random_system_default_avatar
+    self.avatar_file_name = "system_default_avatar(#{get_random()}).png"
+  end
+  def get_random
+    return (rand*100).floor % User.system_default_avatar_num + 1
   end
 end

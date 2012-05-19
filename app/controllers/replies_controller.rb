@@ -8,7 +8,6 @@ class RepliesController < ApplicationController
     @reply = Reply.new
     @target_type = params[:target_type]
     @comment = get_target_comment(params[:comment_id], @target_type)
-    @no_reply = true
     redirect_back_unless(@comment)
   end
 
@@ -18,6 +17,7 @@ class RepliesController < ApplicationController
     @reply = Reply.new(params[:reply])
     @reply.user_id = @current_user.id
     parent_id = get_parent_id(params[:target_type], params[:comment][:id])
+    @reply_target_id = params[:comment][:id]
     @reply.comment_id = parent_id 
     if is_valid_comment_id?(params[:comment],params[:target_type]) && \
       @reply.save()
@@ -25,7 +25,10 @@ class RepliesController < ApplicationController
       SystemMessage.create_message(@current_user.id, 
                                    params[:comment][:user_id].to_i,
                                    "reply")
-      redirect_to(share_infos_path)
+      respond_to do |format|
+        format.html {redirect_to(share_infos_path)}
+        format.js {render(:layout=>false)}
+      end
     else
       flash[:error] = "failed to reply"
       @comment = get_target_comment(params[:comment_id],params[:target_type])
@@ -53,11 +56,15 @@ class RepliesController < ApplicationController
     return target_comment
   end
   def redirect_back_unless condition
-    unless condition
-      flash[:error] = "invalid comment id"
-      redirect_to(:back)
-    else
-      render(:action=>"new")
+    respond_to do |format|
+      unless condition
+        flash[:error] = "invalid comment id, please try again"
+        format.html {redirect_to(:back)}
+        format.js {render(:js => "alert(#{flash[:error]})")}
+      else
+        format.html {render(:action=>"new")}
+        format.js {render(:layout=>false, :action=>"new")}
+      end
     end
   end
   def get_parent_id target_type, comment_id

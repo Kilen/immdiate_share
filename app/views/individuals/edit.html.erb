@@ -1,6 +1,6 @@
 <h1>Editing individual</h1>
 
-<%= form_for(@user, :url=>individual_path(:user.id),
+<%= form_for(@user, :url=>individual_path(@user),
              :html=>{:class=>"nice"}) do |f|%>
   <%= render(:partial=>"shared/form_errors",:object=>@user) %>
   <%= f.label(:name) %>

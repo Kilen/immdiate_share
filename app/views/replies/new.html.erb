@@ -1,4 +1,4 @@
 <%= page_title("reply") %>
 <%= render(:partial=>"shared/comment", :object=>@comment,
-           :locals => {:no_reply => @no_reply}) %>
+           :locals => {:no_reply => true}) %>
 <%= render 'form' %>

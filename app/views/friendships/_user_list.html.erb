@@ -1,23 +1,27 @@
-<table>
-  <tr>
-    <th width="100px">name</th>
-    <th width="100px">relationship</th>
-    <th width="100px">function</th>
-  </tr>
-
+<div class="friend_list">
 <% @users.each do |user| %>
-  <tr>
-    <% unless @current_user.id == user.id %>
-      <td width="100px"><%= user.name %></td>
-      <% if @current_user.friends.include?(user) %>
-        <td width="100px">friend</td>
-        <td width="100px"><%= button_to("add", ask_friendship_path(:id => user.id), 
-                          :disabled => true) %></td>
-      <% else %>
-        <td width="100px">stranger</td>
-        <td width="100px"><%= button_to("add", ask_friendship_path(:id => user.id))%></td>
-      <% end %>
+  <% unless @current_user.id == user.id %>
+    <% if @current_user.friends.include?(user) %>
+      <% is_friend = true %>
     <% end %>
-  </tr>
+    <div class="row friend_term">
+      <div class="three columns">
+        <%= image_tag(user.avatar.url, :width=>50) %>
+      </div>
+      <div class="seven columns friend_info">
+        <%= user.name %>(<%= is_friend ? "friend" : "stranger" %>)
+      </div>
+      <div class="two columns">
+        <% if is_friend %>
+          <%= button_to("add", ask_friendship_path(:id => user.id), 
+                        :disabled => true, 
+                        :class=>"nice black radius button") %>
+        <% else %>
+          <%= button_to("add", ask_friendship_path(:id => user.id),
+                        :class=>"nice blue radius button") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
-</table>
+</div>

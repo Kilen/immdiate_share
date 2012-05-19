@@ -1,36 +1,49 @@
-<div class="row">
-  <div class="one column"></div>
-  <div class="eleven column">
-    <div class="comment">
-      <div class="comment_inside_frame">
-        <div class="comment_author">
-          <% if comment.author == @current_user %>
-            <strong>you </strong> commented
-          <% else %>
-            <strong><%= comment.author.name %></strong> commented
-          <% end %>
-        </div> 
-        <div class="comment_content">
-          <%= comment.content %>
-        </div>
-        <ul class="block-grid two-up">
-          <li class="comment_date"><%= comment.created_at %></li>
-        <% no_reply ||= false %>
-        <% unless no_reply %>
-          <% unless @current_user == comment.author %>
-            <li class="reply_link">
-              <%= link_to("reply to #{comment.author.name}", 
-                           new_reply_path(:comment_id => comment.id, 
-                          :target_type=>"comment"))%>
-            </li>
-          <% end %>
-          <%= render(:partial=>"shared/reply", 
-                     :collection=>comment.replies) %>
+<div class="row comment">
+<div class="comment_inside_frame">
+  <div class="two column">
+    <%= link_to(individual_path(comment.author), :method=>:get) do%>
+      <%= image_tag(comment.author.avatar_url, :size=>"90x90") %>
+    <% end %>
+  </div>
+  <div class="ten column" id="comment_<%=comment.id%>">
+      <div class="comment_author">
+        <% if comment.author == @current_user %>
+          <strong>
+            <%= link_to("you",
+                        individual_path(comment.author), :method=>:get) %>
+          </strong> commented
+        <% else %>
+          <strong>
+            <%= link_to(comment.author.name,
+                        individual_path(comment.author), :method=>:get) %>
+          </strong> commented 
         <% end %>
-        </ul>
+      </div> 
+      <div class="comment_content">
+        <%= comment.content %>
       </div>
-    </div>
-    <br />
+
+      <ul class="block-grid two-up">
+        <li class="comment_date"><%= comment.created_at %></li>
+      <% no_reply ||= false %>
+        <li class="reply_link">
+        <% unless @current_user == comment.author %>
+          <%= link_to("reply to #{comment.author.name}", 
+                      new_reply_path(:comment_id => comment.id, 
+                      :target_type=>"comment"),:id=>"reply_link_#{comment.id}")%>
+        <script type="text/javascript" charset="utf-8">
+          $("#reply_link_<%=comment.id%>").attr("data-remote","true");
+        </script>
+        <% end %>
+        </li>
+      </ul>
+      <div id="reply_box_<%=comment.id%>"></div>
+      <% unless no_reply %>
+        <%= render(:partial=>"shared/reply", 
+                   :collection=>comment.replies) %>
+      <% end %>
   </div>
 </div>
+</div>
+    <br />
 

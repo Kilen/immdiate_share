@@ -1,0 +1,98 @@
+<%= page_title("Crop Image") %>
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag "jquery.Jcrop.min" %>
+  <%= javascript_include_tag "jquery.Jcrop.min" %>
+  <script type="text/javascript" charset="utf-8">
+    $("body").ready(function(){
+      $("#temp_avatar").change(function(){
+        $("#upload_form").submit();
+      });
+    });
+
+  <% unless @temp.new_record? %>
+    $("#crop_box").ready(function() {
+      $('#crop_box').Jcrop({
+        onChange: update_crop,
+        onSelect: update_crop,
+        setSelect: [0, 0, 150, 150],
+        aspectRatio: 1,
+        minSize: [150, 150]
+      });
+    });
+    function update_crop(coords){
+      var rx = 150.0/coords.w;
+      var ry = 150.0/coords.h;
+      $('#preview').css({
+        width: Math.round(rx * <%= @temp.avatar_width %>) + 'px',
+        height: Math.round(ry * <%= @temp.avatar_height %>) + 'px',
+        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+      });
+      
+      $("#crop_x").val(coords.x);
+      $("#crop_y").val(coords.y);
+      $("#crop_w").val(coords.w);
+      $("#crop_h").val(coords.h);
+      $("#x").text("x: "+ coords.x);
+      $("#y").text("y: "+ coords.y);
+      $("#w").text("width: "+coords.w);
+      $("#h").text("height: "+coords.h);
+    }
+  <% end %>
+  </script>
+<% end %>
+
+<%= form_for(@temp, :url=>temps_path(:format=>"js"), :method=>:post,
+             :html=>{:multipart=>true, :class=>"nice", :id=>"upload_form",
+                     :target=>"upload_frame"}) do |f|%>
+  <%= f.label(:avatar,"please choose an image in your computer
+              (only support \"bmp\",\"gif\",\"jpg\",\"png\")") %>
+  <%= f.file_field(:avatar) %>
+<% end %>
+<iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>
+    <div class="row">
+      <div class="nine columns">
+        <div id="image_upload">
+          <% unless @temp.new_record? %>
+            <div class="heads_up_green">
+              This is the photo you uploaded last time and did not crop yet
+            </div>
+            <%= image_tag(@temp.avatar.url(:original),:id=>"crop_box") %>
+          <% end %>
+        </div>
+      </div>
+      <div class="three columns">
+        <h4>Preview:</h4>
+        <div style="width:150px; height:150px; border: thin solid #CCCCCC;
+          overflow:hidden">
+        <div id="preview_box">
+          <% unless @temp.new_record? %>
+            <%= image_tag @temp.avatar.url(:original), :id => "preview" %>
+          <% end %>
+        </div>
+        </div>
+        <div class="heads_up_yellow" style="width:137px;">
+          No matter how big your selection box is, it will end up compressing into "150x150"
+        </div>
+        
+        <div class="coordinate_info">
+          <div class="coordinate_title">Selection Box Info</div>
+          <div id="x" class="coordinate_term">x: 0</div>
+          <div id="y" class="coordinate_term">y: 0</div>
+          <div id="w" class="coordinate_term">width: 0</div>
+          <div id="h" class="coordinate_term">height: 0</div>
+        </div>
+        <div id="crop_form">
+        <%unless @temp.new_record? %>
+          <%= form_for @temp, :method=>:put, :url=>temp_path(@temp) do |f| %>
+            <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+              <%= f.hidden_field(attribute, :id => attribute)%>
+            <% end %>
+            <p><%= f.submit("Crop", :class=>"blue nice radius button")%></p>
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+</div>
+

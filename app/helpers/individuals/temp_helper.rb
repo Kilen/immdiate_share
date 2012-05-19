@@ -1,0 +1,2 @@
+module Individuals::TempHelper
+end

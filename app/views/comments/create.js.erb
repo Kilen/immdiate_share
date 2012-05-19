@@ -1,0 +1,9 @@
+var $new_comment = $('<%= j(render(:partial=>"shared/comment",
+  :collection=>[@comment])) %>');
+$new_comment.appendTo("#share_<%=@comment.share_info_id%>");
+$("#comment_box_<%=@comment.share_info_id%>").html("");
+
+var coords = $new_comment.offset();
+window.scrollTo(coords.left, coords.top-200);
+$new_comment.css({backgroundColor: "#F0B4DE"});
+$new_comment.animate({backgroundColor: "#FFFFFF"}, 2000);

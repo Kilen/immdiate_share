@@ -1,0 +1,23 @@
+<div class="secondary_title">Click one as your avatar</div>
+<div class="row">
+  <div class="eight columns centered">
+<div class="system_avatars">
+  <% 1.upto(User.system_default_avatar_num).each do |i| %>
+    <% if i % 3 == 1 %>
+      <ul class="block-grid three-up" 
+        style="border-top:thin dotted #CCCCCC; padding-top:2%;">
+    <% end %>
+    <li>
+    <%= form_tag(avatar_path(@current_user), :method=>:put) do %>
+      <%=hidden_field_tag("user[avatar_file_name]",
+                          "system_default_avatar(#{i}).png")%>
+      <%= image_submit_tag("avatar/system_default_avatar(#{i}).png",:width=>120) %>
+    <% end %>
+    </li>
+    <% if i % 3 == 0 %>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
+  </div>
+</div>

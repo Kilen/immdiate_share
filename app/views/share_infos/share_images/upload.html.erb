@@ -1,24 +1,15 @@
 <%= page_title("Share Image(upload)") %>
-<ul class="block-grid two-up">
-  <li>
-    <%= form_for @share_image, :url=>images_path, 
-      :html=>{:multipart=>true, :class=>"nice"} do |f|%>
-      <%= render(:partial=>"shared/form_errors", :object=>@share_image) %>
-      <%= f.label(:image,"please choose an image in your computer")%>
-      <%= f.file_field(:image) %>
-      <%= f.text_area(:description, :rows=>10,:style=>"width:80%",
-                      :placeholder=>"description of image") %>
-      <%= render("shared/choose_friends") %>
-      <%= f.hidden_field(:from_where, :value=>"from_computer")%></br>
-      <%= f.submit("share image", :class=>"nice blue radius button") %>
-    <% end %>
-  </li>
-  <li>
-    <div id="help_info">
-      Right now we only support "bmp", "gif", "jpg", "png"
-    </div>
-  </li>
-</ul>
+<%= form_for @share_image, :url=>images_path, 
+  :html=>{:multipart=>true, :class=>"nice"} do |f|%>
+  <%= f.label(:image,"please choose an image in your computer
+              (only support \"bmp\",\"gif\",\"jpg\",\"png\")") %>
+  <%= f.file_field(:image) %>
+  <%= f.text_area(:description, :rows=>10,:style=>"width:80%",
+                  :placeholder=>"description of image") %>
+  <%= render("shared/choose_friends") %>
+  <%= f.hidden_field(:from_where, :value=>"from_computer")%></br>
+  <%= f.submit("share image", :class=>"nice blue radius button") %>
+<% end %>
 
 
 <%= link_to("Click here", new_image_path) %> if you want to <b>share image from other website</b>

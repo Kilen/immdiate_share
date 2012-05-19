@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507022803) do
+ActiveRecord::Schema.define(:version => 20120516090221) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -69,12 +69,30 @@ ActiveRecord::Schema.define(:version => 20120507022803) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "share_links", :force => true do |t|
+    t.integer  "share_info_id"
+    t.string   "website_url"
+    t.text     "description"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "title"
+  end
+
   create_table "share_texts", :force => true do |t|
     t.integer  "share_info_id"
     t.text     "content"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "website_url"
+  end
+
+  create_table "share_videos", :force => true do |t|
+    t.integer  "share_info_id"
+    t.text     "description"
+    t.string   "video_url"
+    t.string   "website_url"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "system_messages", :force => true do |t|
@@ -86,14 +104,25 @@ ActiveRecord::Schema.define(:version => 20120507022803) do
     t.datetime "updated_at",                      :null => false
   end
 
+  create_table "temps", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "hashed_password"
     t.string   "salt"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.boolean  "is_admin",        :default => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "is_admin",         :default => false
+    t.string   "avatar_file_name"
   end
 
 end

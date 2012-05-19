@@ -1,0 +1,15 @@
+<%= page_title("Share Video") %>
+<%= form_for(@share_video, :url=>videos_path, 
+             :html=>{:class=>"nice"}) do |f| %>
+  <%= render(:partial=>"shared/form_errors", :object=>@share_video) %>
+  <%= f.label(:video_url, "please copy the url of video to here") %>
+  <%= f.text_field(:video_url, :class=>"input-text", :style=>"width:80%") %>
+  <%= f.label(:description, "video description") %>
+  <%= f.text_area(:description, :rows=>10, :style=>"width:80%") %>
+  <%= f.label(:website_url) %>
+  <%= f.text_field(:website_url, :class=>"input-text", :style=>"width:80%")%>
+
+  <%= render("shared/choose_friends") %>
+  <%= f.submit("share video", :class=>"nice blue radius button") %>
+<% end %>
+

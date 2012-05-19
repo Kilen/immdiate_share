@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="one column"></div>
   <div class="eleven columns">
     <%= form_for(@comment, :url=>comments_path,
                  :html=>{:class=>"nice"}) do |f| %>
+      <%= render(:partial=>"shared/form_errors", :object => @comment) %>
       <%= f.label(:content) %>
       <%= f.text_area(:content, :rows=>8, :style=>"width:100%", 
                       :class=>"input-text") %>
@@ -13,5 +13,8 @@
       <br />
       <%= f.submit("comment",:class=>"nice black button radius") %>
     <% end %>
+  </div>
+  <div class="one column">
+    <div class="close_button_frame"></div>
   </div>
 </div>

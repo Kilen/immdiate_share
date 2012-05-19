@@ -1,0 +1,26 @@
+var max_z_index = 1000;
+var original_x = window.scrollX, original_y = window.scrollY;
+$shadow_div = $("<div id='shadow_box'></div>");
+$shadow_div.css({position: "absolute", left:"0", top:"0", background:"black",
+  width:$(document).width(), height:$(document).height(), opacity:"0.4",
+  "z-index":max_z_index-1
+});
+$shadow_div.prependTo("body");
+
+
+$image_frame = $("<div id='image_frame'></div>");
+$image_frame.css({position:"fixed", left:$(document).width()/4,
+  top:$(window).height()/8, width:$(document).width()/2,
+  "z-index":max_z_index
+});
+$image_frame.prependTo("body");
+
+$image_frame.html('<%= j(render("show_image")) %>');
+
+$image_frame.find(".close_button_frame")
+  .html('<%= j(link_to("close","javascript:0;")) %>')
+  .click(function(){
+    $shadow_div.remove();
+    $image_frame.remove();
+    window.scrollTo(original_x, original_y);
+  });

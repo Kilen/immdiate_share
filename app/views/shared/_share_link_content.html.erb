@@ -1,0 +1,29 @@
+<div class="share_content">
+  <div class="title">
+    <%= share.share_link.title %>
+  </div>
+  <div class="description">
+    <%= share.share_link.description%>
+  </div>
+</div>
+<ul class="block-grid three-up">
+  <li class="share_date">
+    <%= share.created_at %>
+  </li>
+  <li class="share_link">
+  <%= link_to(share.share_link.website_url,
+              "http://#{share.share_link.website_url}/") %>
+  </li>
+  <% is_button_disable ||= false %>
+  <% unless is_button_disable%>
+    <li class="comment_button">
+      <%= link_to("Comment", new_comment_path(:share_info_id=>share.id),
+                  :id=>"comment_button_#{share.id}",
+                  :class=>"white nice button radius")%>
+    </li>
+    <script type="text/javascript" charset="utf-8">
+      $("#comment_button_<%=share.id%>").attr("data-remote","true");
+    </script>
+  <% end %>
+</ul>
+

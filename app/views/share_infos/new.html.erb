@@ -1,9 +1,11 @@
 <%= page_title("Choose your share type") %>
-<ul class="block-grid three-up">
+<div class="row">
+<div class="nine columns centered">
+<ul class="block-grid two-up">
   <li class="share_type_link">
     <h5>
       <%= link_to(new_text_path) do %>
-        "click to share text"
+        <div> "click to share text" </div>
         <%= image_tag("share_type_text.png", :width=>"200", :height=>"200") %>
       <% end %>
     </h5>
@@ -14,23 +16,38 @@
   <li class="share_type_link">
     <h5>
       <%= link_to(new_image_path) do %>
-        "click to share image"
-        <%= image_tag("share_type_picture.png", :width=>"200", :height=>"200") %>
+        <div>"click to share image"</div>
+        <%= image_tag("share_type_image.png", :width=>"200", :height=>"200") %>
       <% end %>
     </h5>
     <div class="share_description">
-      you can share a photo with your friends
+      you can share a photo with here 
     </div>
   </li>
+</ul>
+<ul class="block-grid two-up">
   <li class="share_type_link">
     <h5>
-      <%= link_to(new_text_path) do %>
-        "click to share vedio"
+      <%= link_to(new_video_path) do %>
+        <div>"click to share vedio"</div>        
         <%= image_tag("share_type_vedio.png", :width=>"200", :height=>"200") %>
       <% end %>
     </h5>
     <div class="share_description">
-      you can share a interesting video here
+      you can share a video here
+    </div>
+  </li>
+  <li class="share_type_link">
+    <h5>
+      <%= link_to(new_link_path) do %>
+        <div>"click to share link"</div>
+        <%= image_tag("share_type_link.png", :width=>"200", :height=>"200") %>
+      <% end %>
+    </h5>
+    <div class="share_description">
+      you can share a link here
     </div>
   </li>
 </ul>
+</div>
+</div>

@@ -1,0 +1,13 @@
+var original_x = window.scrollX, original_y = window.scrollY;
+$comment_box = $('<%= escape_javascript(render("form")) %>');
+$comment_box.find("form").attr("data-remote","true");
+$("#comment_box_<%=@share_info.id%>").html($comment_box);
+var coords = $("#comment_box_<%=@share_info.id%>").offset();
+window.scrollTo(coords.left, coords.top-300)
+$comment_box.find("textarea").focus();
+$comment_box.find(".close_button_frame")
+  .html('<%= link_to("close","javascript:0;")%>')
+  .click(function(){
+    $("#comment_box_<%=@share_info.id%>").html("");
+    window.scrollTo(original_x, original_y);
+  });

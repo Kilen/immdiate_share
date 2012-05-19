@@ -1,7 +1,2 @@
 <%= page_title("Image") %>
-<div class="image">
-  <%= image_tag(@share_image.image.url) %>
-</div>
-<div class="description">
-  <%= @share_image.description %>
-</div>
+<%= render("show_image") %>

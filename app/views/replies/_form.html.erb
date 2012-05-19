@@ -1,8 +1,10 @@
-<%= form_for(@reply, :url=>replies_path) do |f| %>
+<div class="reply_box">
+<div class="close_button_frame" style="float:right"></div>
+<%= form_for(@reply, :url=>replies_path, :html=>{:class=>"nice"}) do |f| %>
   <%= render(:partial=>"shared/form_errors", :object=>@reply) %>
   your reply:
   <br />
-  <%= f.text_area(:content) %>
+  <%= f.text_area(:content,:rows=>5,:style=>"width:80%",:class=>"input-text") %>
   <br />
   <%= fields_for(@comment, :index=>nil) do |comment| %>
     <%= comment.hidden_field(:id, :name=>"comment[id]") %>
@@ -10,5 +12,6 @@
   <% end %>
   <%= hidden_field_tag(:target_type, @target_type) %>
   <br />
-  <%= f.submit %>
+  <%= f.submit("reply", :class=>"nice black button radius") %>
 <% end %>
+</div>

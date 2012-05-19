@@ -6,6 +6,12 @@
 <% when "image": %>
   <%= render("shared/share_image_content", {:share=>@share_info, 
              :is_button_disable=>true}) %>
+<% when "video": %>
+  <%= render("shared/share_video_content", {:share=>@share_info, 
+             :is_button_disable=>true}) %>
+<% when "link": %>
+  <%= render("shared/share_link_content", {:share=>@share_info, 
+             :is_button_disable=>true}) %>
 <% else %>
   error, no such type of share
 <% end %>

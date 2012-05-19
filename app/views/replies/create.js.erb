@@ -1,0 +1,10 @@
+var $new_reply = $('<%= j(render(:partial=>"shared/reply",
+  :collection=>[@reply])) %>');
+$new_reply.appendTo("#comment_<%=@reply.comment_id%>");
+$("#reply_box_<%=@reply_target_id%>").html("");
+
+var coords = $new_reply.offset();
+window.scrollTo(coords.left, coords.top-200);
+$new_reply.css({backgroundColor: "#F0B4DE"});
+$new_reply.animate({backgroundColor: "#FFFFFF"}, 2000);
+

@@ -10,7 +10,16 @@ class ShareInfos::ShareImagesController < ApplicationController
   end
   def show
     @share_image = ShareImage.find_by_id(params[:id])
-    redirect_to new_share_image_path unless @share_image
+    respond_to do |format|
+      unless @share_image
+        flash[:error] = "no such image with id(#{params}) has been found, please try again"
+        format.html {redirect_to new_image_path} 
+        format.js {render(:js=>"alert(#{flash[:error]})")}
+      else
+        format.html
+        format.js {render(:layout=>false)}
+      end
+    end
   end
   def create
     @share_image = ShareImage.new(params[:share_image])

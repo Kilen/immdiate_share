@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="twelve columns">
+    <%= page_title("Share Link") %>
+    <%= form_for(@share_link, :url => links_path, 
+                 :html=>{:class=>"nice"}) do |f|%>
+      <%= render(:partial=>"shared/form_errors", :object=>@share_link) %>
+      <%= f.label(:title) %>
+      <%= f.text_field(:title,:style=>"width:80%",:class=>"input-text")%>
+      <%= f.label(:website_url, "link url") %>
+      <%= f.text_field(:website_url,:style=>"width:80%",:class=>"input-text")%>
+      <%= f.label(:description, "Description") %>
+      <%= f.text_area(:description, :rows=>10,:style=>"width:80%") %>
+      <br />
+      <%= render("shared/choose_friends") %>
+      <br />
+      <%= f.submit("share", :class=>"nice black button radius") %>
+    <% end %>
+  </div>
+</div>

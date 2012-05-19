@@ -1,6 +1,8 @@
 class ShareInfo < ActiveRecord::Base
   has_one :share_text, :dependent => :destroy
   has_one :share_image, :dependent => :destroy
+  has_one :share_video, :dependent => :destroy
+  has_one :share_link, :dependent => :destroy
   belongs_to :from_user, :class_name => "User", :foreign_key => :from
   has_many :user_addresses, :class_name => "RecievesAndTo",
            :dependent => :destroy
@@ -10,7 +12,7 @@ class ShareInfo < ActiveRecord::Base
   has_many :comments
 
   attr_accessible :share_type, :url, :content
-  validates_associated :share_text, :share_image
+  validates_associated :share_text, :share_image, :share_video, :share_link
   validate :user_address_validator, :before => :create
   validate :type_validator
 
@@ -40,12 +42,21 @@ class ShareInfo < ActiveRecord::Base
       return false
     end
   end
+  def link_with_share share, type
+    case type
+    when "text": self.share_text = share
+    when "image": self.share_image = share
+    when "video": self.share_video = share
+    when "link": self.share_link = share
+    else raise "no such type(#{type}) of content"
+    end
+  end
 
 
   private
 
   def type_validator
-    unless ["text", "image", "vedio"].include?(share_type)
+    unless ["text", "image", "video", "link"].include?(share_type)
       errors.add(:type, "no such type of share")
     end
   end
@@ -60,17 +71,12 @@ class ShareInfo < ActiveRecord::Base
     end
     save_content()
   end
-  def link_with_share share, type
-    case type
-    when "text": self.share_text = share
-    when "image": self.share_image = share
-    else raise "no such type(#{type}) of content"
-    end
-  end
   def save_content
     case self.share_type
     when "text": self.share_text.save()
     when "image": self.share_image.save()
+    when "video": self.share_video.save()
+    when "link": self.share_link.save()
     else raise "save content error"
     end
   end

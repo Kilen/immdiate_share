@@ -21,7 +21,14 @@ class CommentsController < ApplicationController
       SystemMessage.create_message(@current_user.id, 
                                    params[:share_info][:from].to_i,
                                    "comment")
-      redirect_to(share_infos_path+"#share_by_you")
+      respond_to do |format|
+        format.html do
+          location = @comment.share_info.from == @current_user.id ? \
+            "#share_by_you" : "#share_from_friend"
+          redirect_to(share_infos_path+location)
+        end
+        format.js {render(:layout=>false)}
+      end
     else
       flash[:error] = "failed to comment, please try again"
       @share_info = ShareInfo.find_by_id(params[:share_info][:id])
@@ -39,11 +46,15 @@ class CommentsController < ApplicationController
     return false
   end
   def redirect_back_unless condition
-    unless condition
-      flash[:error] = "Invalid share info id"
-      redirect_to(share_infos_path)
-    else
-      render(:action=>"new")
+    respond_to do |format|
+      unless condition
+        flash[:error] = "Invalid share info id, please try again"
+        format.html {redirect_to(share_infos_path)}
+        format.js {render(:js => "alert(#{flash[:error]})")}
+      else
+        format.html {render(:action=>"new")}
+        format.js {render(:layout=>false, :action=>"new")}
+      end
     end
   end
 end

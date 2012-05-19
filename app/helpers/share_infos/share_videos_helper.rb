@@ -1,0 +1,2 @@
+module ShareInfos::ShareVideosHelper
+end

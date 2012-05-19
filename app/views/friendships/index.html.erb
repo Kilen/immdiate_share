@@ -1,9 +1,16 @@
 <%= page_title("Search Friends") %>
 
 <div id="search">
-  <%= form_tag(search_friendships_path, :method => :get) do %>
-    Search: <%=text_field_tag("user_name", "user name")  %>
-    <%= submit_tag("search", :name => nil) %>
+  <%= form_tag(search_friendships_path, :method => :get,
+               :class=>"nice") do %>
+    <div class="search_title">Search</div>
+    <div class="search_field">
+        <%=text_field_tag("user_name", "", :placeholder=>"user name", 
+                                  :class=>"input-text") %>
+    </div>
+    <div class="search_button">
+      <%= image_submit_tag("search_button.png", :name => nil)%>
+    </div>
   <% end %>
 </div>
 <% if @users.blank? %>

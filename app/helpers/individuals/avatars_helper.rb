@@ -1,0 +1,2 @@
+module Individuals::AvatarsHelper
+end

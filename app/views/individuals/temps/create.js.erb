@@ -1,0 +1,32 @@
+$("#image_upload").html("<img alt='Avatar' src=<%=@temp.avatar.url%> id='crop_box' width='<%= @temp.avatar_width %>' height='<%= @temp.avatar_height%>'>");
+$("body").ready(function() {
+  $('#crop_box').Jcrop({
+    onChange: update_crop,
+    onSelect: update_crop,
+    setSelect: [0, 0, 150, 150],
+    aspectRatio: 1,
+    minSize: [150,150]
+  });
+});
+function update_crop(coords){
+  var rx = 150.0/coords.w;
+  var ry = 150.0/coords.h;
+  $('#preview').css({
+    width: Math.round(rx * <%= @temp.avatar_width %>) + 'px',
+    height: Math.round(ry * <%= @temp.avatar_height %>) + 'px',
+    marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+    marginTop: '-' + Math.round(ry * coords.y) + 'px'
+  });
+
+  $("#crop_x").val(coords.x);
+  $("#crop_y").val(coords.y);
+  $("#crop_w").val(coords.w);
+  $("#crop_h").val(coords.h);
+  $("#x").text("x: "+ coords.x);
+  $("#y").text("y: "+ coords.y);
+  $("#w").text("width: "+coords.w);
+  $("#h").text("height: "+coords.h);
+}
+
+$("#preview_box").html('<%= image_tag(@temp.avatar.url,:id=>"preview") %>');
+$("#crop_form").html(' <%= form_for @temp, :method=>:put, :url=>temp_path(@temp) do |f| %> <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %> <%= f.hidden_field(attribute, :id => attribute)%> <% end %> <p><%= f.submit("Crop", :class=>"blue nice radius button")%></p> <% end %> ');

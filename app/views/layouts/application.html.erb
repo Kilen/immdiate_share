@@ -2,16 +2,16 @@
 <html>
 <head>
   <title>ImmediateShare</title>
-  <%= stylesheet_link_tag "foundation","ie","application", :media => "all" %>
-  <%= javascript_include_tag "jquery.min", "foundation",
-      "modernizr.foundation", "app", "application" %>
+  <%= stylesheet_link_tag "foundation", "ie", "app", :media => "all" %>
+  <%= javascript_include_tag "jquery.min", "jquery.animate-colors-min", "foundation", "modernizr.foundation", "rails.js", "app", "application" %>
+  <%= yield(:head) %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <div class="container">
   	<div class="row">
-      <div class="two columns"></div>
-      <div class="seven columns">
+      <div class="one columns"></div>
+      <div class="eight columns">
         <ul class="breadcrumbs">
           <%= menu_item_available_if(@current_user,"HOME",
                                      share_infos_path)%>
@@ -42,7 +42,7 @@
 
   <div class="container">
   	<div class="row">
-  		<div class="eight columns centered"> <%= yield %></div>
+  		<div class="ten columns centered"><%= yield %></div>
   	</div>
   </div>
 

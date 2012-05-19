@@ -9,12 +9,32 @@
 :: comment
 :: reply
 :: system message
+:: choose friends partial
+:: profile
+:: friend list
+:: friend search
+:: coordiate info
+:: heads_up
 */
 
 
 /* -----------------------------------------
    Shared Styles
 ----------------------------------------- */
+h3{
+  float: left;
+}
+img{
+  border: thin solid #CCCCCC;
+}
+.secondary_title{
+  font-size: 1.5em;
+  color: #333;
+  font-weight: bold;
+  margin: 1em 0 .6em !important;
+  text-align: center;
+  padding: 1% 2% 0% 2%;
+}
 
 
 /* -----------------------------------------
@@ -33,7 +53,7 @@ strong{
 }
 .share_content{
   font-family:微软雅黑;
-  background-color: #F7F7F7;
+  background-color: #F4F4F4;
   border: thin solid #EDEDED;
   padding: 2% 1% 2% 2%; 
   margin-bottom: 2%;
@@ -45,18 +65,20 @@ strong{
   font-size:8px;
   color:#B4B4B4;
   margin-top: 1%;
+  overflow: hidden;
 }
 .share_date{
   margin-top: 1%;
   text-align:center;
   font-size:8px;
   color:#B4B4B4;
+  overflow: hidden;
 }
 .comment_button{
   text-align: right;
 }
 .share_button{
-  float:right;
+  float: right;
 }
 
 
@@ -80,7 +102,7 @@ strong{
 }
 .comment_content{
   font-family:微软雅黑;
-  background-color: #F7F7F7;
+  background-color: #F4F4F4;
   border: thin solid #EDEDED;
   padding: 2% 1% 2% 2%; 
   margin-top: 1%;
@@ -90,11 +112,13 @@ strong{
   font-family:arial;
   text-decoration:underline;
   margin-top: 1%;
+  overflow: hidden;
 }
 .comment_date{
   text-align:center;
   font-size:8px;
   color:#B4B4B4;
+  overflow: hidden;
 }
 .reply_button{
   text-align:right;
@@ -115,7 +139,7 @@ strong{
 }
 .reply_content{
   font-family:微软雅黑;
-  background-color: #F7F7F7;
+  background-color: #F4F4F4;
   border: thin solid #EDEDED;
   padding: 2% 1% 2% 2%; 
   margin-top: 1%;
@@ -124,12 +148,14 @@ strong{
 .reply_date{
   font-size:8px;
   color:#B4B4B4;
+  overflow: hidden;
 }
 .reply_link{
   text-decoration: underline;
   text-align:right;
   color:black;
   font-weight: bold;
+  overflow: hidden;
 }
 
 /* -----------------------------------------
@@ -148,4 +174,114 @@ strong{
   padding-bottom: 1%;
 }
 
+/* -----------------------------------------
+   choose friends partial
+----------------------------------------- */
+.choose_friends{}
+.choose_friends_title{
+  font-weight: bold;
+}
+.choose_friends_list{}
 
+/* -----------------------------------------
+   profile
+----------------------------------------- */
+.profile{ }
+.profile_image{ }
+.profile_info{
+  top: 100px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.profile_info_term{
+  padding: 1% 1% 1% 1%;
+}
+.profile_button{
+  text-align: right;
+}
+.profile_button_term{
+  padding-top: 5%;
+  border-right: thin dotted #CCCCCC;
+  border-bottom: thin dotted #CCCCCC;
+}
+
+/* -----------------------------------------
+   friend list
+----------------------------------------- */
+.friend_list{
+  padding: 3% 5% 3% 5%;
+}
+.friend_term{
+  padding-bottom: 1%;
+  padding-top: 2%;
+  border-top: thin dotted #CCCCCC;
+}
+.friend_info{
+  font-family: "Trebuchet MS", Verdana, Helvetica, Arial,sans-serif;
+  color: #444;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* -----------------------------------------
+   friend search
+----------------------------------------- */
+.search_field{
+  width: 250px;
+  display: inline-block;
+}
+.search_button{
+  display: inline-block;
+  position: relative;
+  width: 35px;
+  height: 35px;
+  left: -20px;
+  border: 0;
+  cursor: pointer;
+}
+.search_title{
+  font-size: 1.3em;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 1;
+  margin-right: .5em;
+  display: inline-block;
+}
+
+
+/* -----------------------------------------
+   coordinate_info
+----------------------------------------- */
+.coordinate_info{
+  padding: 6px 7px;
+}
+.coordinate_title{
+  font-weight: bold;
+}
+.coordinate_term{
+  padding: 6px 7px;
+}
+
+
+
+
+
+/* -----------------------------------------
+   heads_up
+----------------------------------------- */
+.heads_up_yellow{
+  border: thin dotted #F68B01;
+  padding: 6px 7px;
+  font-weight: bold;
+  font-size: 13px;
+  font-style: italic;
+  margin: 5% 2% 3% 0%;
+}
+.heads_up_green{
+  border: thin dotted #7FAE00;
+  padding: 6px 7px;
+  font-weight: bold;
+  font-size: 13px;
+  font-style: italic;
+  margin-bottom: 12px;
+}

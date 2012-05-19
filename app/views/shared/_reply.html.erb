@@ -1,29 +1,41 @@
-<div class="row">
-  <div class="one columns"></div>
-  <div class="eleven columns">
-    <div class="reply">
-      <div class="reply_inside_frame">
-        <div class="reply_auther">
-          <% if reply.author == @current_user %>
-            <strong>you</strong> replied
-          <% else %>
-            <strong><%= reply.author.name %></strong> replied
-          <% end %>
-        </div> 
-        <div class="reply_content">
-          <p><%= reply.content %></p>
-        </div>
-        <ul class="block-grid two-up">
-          <li class="reply_date"><%= reply.created_at %></li>
-          <% unless @current_user == reply.author%>
-            <li class="reply_link">
-              <%= link_to("reply to #{reply.author.name}", 
-                           new_reply_path(:comment_id=>reply.id, 
-                          :target_type=>"reply"))%>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+<div class="reply">
+<div class="row reply_inside_frame">
+    <div class="two columns">
+      <%= link_to(individual_path(reply.author), :method=>:get) do%>
+        <%= image_tag(reply.author.avatar_url, :size=>"70x70") %>
+      <% end %>
     </div>
-  </div>
+    <div class="ten columns">
+      <div class="reply_auther">
+        <% if reply.author == @current_user %>
+          <strong>
+            <%= link_to("you",
+                        individual_path(reply.author), :method=>:get) %>
+          </strong> replied 
+        <% else %>
+          <strong>
+            <%= link_to(reply.author.name,
+                        individual_path(reply.author), :method=>:get) %>
+          </strong> replied
+        <% end %>
+      </div> 
+      <div class="reply_content">
+        <p><%= reply.content %></p>
+      </div>
+      <ul class="block-grid two-up">
+        <li class="reply_date"><%= reply.created_at %></li>
+        <li class="reply_link">
+          <% unless @current_user == reply.author%>
+            <%= link_to("reply to #{reply.author.name}", 
+                         new_reply_path(:comment_id=>reply.id, 
+                        :target_type=>"reply"), :id=>"reply_link_#{reply.id}")%>
+          <% end %>
+          <script type="text/javascript" charset="utf-8">
+            $("#reply_link_<%=reply.id%>").attr("data-remote","true");
+          </script>
+        </li>
+      </ul>
+      <div id="reply_box_<%=reply.id%>"></div>
+    </div>
+</div>
 </div>

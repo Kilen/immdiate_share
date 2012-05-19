@@ -4,9 +4,9 @@
     <%= form_for(@share_text, :url => texts_path, 
                  :html=>{:class=>"nice"}) do |f|%>
       <%= render(:partial=>"shared/form_errors", :object=>@share_text) %>
-      <%= f.label(:content, "Content:") %>
+      <%= f.label(:content, "Content") %>
       <%= f.text_area(:content, :rows=>10,:style=>"width:80%") %>
-      <%= f.label(:website_url, "URL:") %>
+      <%= f.label(:website_url, "website url") %>
       <%= f.text_field(:website_url,:style=>"width:80%",:class=>"input-text")%>
       <br />
       <%= render("shared/choose_friends") %>

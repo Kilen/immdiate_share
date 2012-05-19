@@ -22,6 +22,8 @@ end
 gem 'jquery-rails'
 gem "ruby-debug", "~> 0.10.4"
 gem "paperclip", "~> 2.7"
+gem "responds_to_parent", "~> 1.1.0"
+# gem "rmagick" should be needed, but bundle install rmagick failed, so I install a rmagick.exe locally, i am not sure this would work when I push into server
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

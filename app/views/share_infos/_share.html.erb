@@ -1,11 +1,22 @@
 <div class="share">
   <div class="row">
-    <div class="twelve columns">
+    <div class="two columns">
+      <%= link_to(individual_path(share.from_user), :method=>:get) do%>
+        <%= image_tag(share.from_user.avatar_url, :size=>"110x110") %>
+      <% end %>
+    </div>
+    <div class="ten columns" id="share_<%=share.id%>">
       <div class="share_author">
         <% if share.from_user == @current_user %>
-          <strong>you</strong> shared
+          <strong>
+            <%= link_to("you",
+                        individual_path(share.from_user), :method=>:get) %>
+          </strong> shared
         <% else %>
-          <strong><%= share.from_user.name %></strong> shared
+          <strong>
+            <%= link_to(share.from_user.name,
+                        individual_path(share.from_user), :method=>:get) %>
+          </strong> shared
         <% end %>
       </div>
 
@@ -15,10 +26,15 @@
                   {:share=>share})%>
       <% when "image": %>
         <%=render("shared/share_image_content",{:share=>share}) %>
+      <% when "video": %>
+        <%= render("shared/share_video_content",{:share=>share}) %>
+      <% when "link": %>
+        <%= render("shared/share_link_content",{:share=>share}) %>
       <% else %>
         <%= "error, no such share type"  %>
       <% end %>
-
+      <div id="comment_box_<%=share.id%>">
+      </div>
 
       <%=render(:partial=>"shared/comment",
                 :collection=>share.comments) %>
