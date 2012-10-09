@@ -1,27 +1,20 @@
-
-<div class="container">
-	<div class="row">
-		<div class="ten columns centered">
-      <% if flash[:notice] %>
-        <div class="alert-box">
-              <%= flash[:notice] %>
-        </div>
-      <% end %>
-      <% if flash[:error] %>
-        <div class="alert-box error">
-              <%= flash[:error] %>
-        </div>
-      <% end %>
-      <% if flash[:success] %>
-        <div class="alert-box success">
-              <%= flash[:success] %>
-        </div>
-      <% end %>
-      <% if flash[:warning] %>
-        <div class="alert-box warning">
-              <%= flash[:warning] %>
-        </div>
-      <% end %>
-		</div>
-	</div>
-</div>
+<% if flash[:notice] %>
+  <div class="alert-box">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<% if flash[:error] %>
+  <div class="alert-box error">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+<% if flash[:success] %>
+  <div class="alert-box success">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+<% if flash[:warning] %>
+  <div class="alert-box warning">
+    <%= flash[:warning] %>
+  </div>
+<% end %>

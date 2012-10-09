@@ -1,7 +1,7 @@
 <div class="share">
   <div class="row">
     <div class="two columns">
-      <%= link_to(individual_path(share.from_user), :method=>:get) do%>
+      <%= link_to(individual_path(share.from_user), :method=>:get, :target=>"_blank") do%>
         <%= image_tag(share.from_user.avatar_url, :size=>"110x110") %>
       <% end %>
     </div>
@@ -9,13 +9,13 @@
       <div class="share_author">
         <% if share.from_user == @current_user %>
           <strong>
-            <%= link_to("you",
-                        individual_path(share.from_user), :method=>:get) %>
+            <%= link_to("you", individual_path(share.from_user), 
+                        :method=>:get, :target=>"_blank") %>
           </strong> shared
         <% else %>
           <strong>
-            <%= link_to(share.from_user.name,
-                        individual_path(share.from_user), :method=>:get) %>
+            <%= link_to(share.from_user.name, individual_path(share.from_user), 
+                        :method=>:get, :target=>"_blank") %>
           </strong> shared
         <% end %>
       </div>

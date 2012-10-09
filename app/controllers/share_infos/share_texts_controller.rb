@@ -6,16 +6,18 @@ class ShareInfos::ShareTextsController < ApplicationController
   # GET /share_info/share_texts/new.json
   def new
     @share_text = ShareText.new
+    my_render();
   end
   def create
     @share_text = ShareText.new(params[:share_text])
     if ShareInfo.put_in_envolope(@share_text, @current_user, 
                                  params[:friend_ids], "text")
       flash[:success] = "successfully shared with your friends"
-      redirect_to(share_infos_path+"#share_by_you")
+      my_render({:text=>flash[:success]}, 
+                {:redirect_to=>true, :url=>share_infos_path+"#share_by_you"})
     else
       flash[:error] = "faild to share with your friends, please try again"
-      render(texts_path)
+      my_render(new_text_path, {:url=>new_text_path})
     end
   end
 end

@@ -6,7 +6,7 @@
     <% end %>
     <div class="row friend_term">
       <div class="three columns">
-        <%= image_tag(user.avatar.url, :width=>50) %>
+        <%= image_tag(user.avatar_url, :width=>50) %>
       </div>
       <div class="seven columns friend_info">
         <%= user.name %>(<%= is_friend ? "friend" : "stranger" %>)

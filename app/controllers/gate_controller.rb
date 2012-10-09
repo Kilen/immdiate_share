@@ -2,6 +2,7 @@ class GateController < ApplicationController
   skip_before_filter :authenticate, :get_unread_system_message
   def index
     @user = User.new()
+    my_render();
   end
 
   def login
@@ -10,21 +11,24 @@ class GateController < ApplicationController
       user_session.hello(params[:user][:name])
       uri = session[:original_uri] || root_path()
       session[:original_uri] = nil
-      redirect_to(uri)
+      my_render({:text=>flash[:success]},
+                {:is_redirect=>true, :url=>uri})
     else
       flash[:error] = "the combination of name and password error"
-      redirect_to(gate_path)
+      my_redirect(gate_path)
     end
   end
 
   def logout
     user_session.bye()
     flash[:notice] = "Looking forward to see you next time!"
-    redirect_to(gate_path)
+    my_render({:text=>flash[:notice]},
+              {:is_redirect=>true, :url=>gate_path})
   end
 
   def register
     @user = User.new()
+    my_render()
   end
 
   def create
@@ -32,13 +36,16 @@ class GateController < ApplicationController
     if @user && @user.save()
       user_session.hello(@user.name)
       flash[:success] = "Welcome, #{@user.name}"
-      redirect_to(root_path)
+      my_render({:text=>flash[:success]},
+                {:is_redirect=>true, :url=>root_path})
     else
-      render(register_path)
+      flash[:error] = "failed to register"
+      my_render(register_path,{:url=>register_path})
     end
   end
 
   private
+
 
   def is_user?(person)
     if User.authenticate?(person[:name],person[:password])
@@ -47,5 +54,4 @@ class GateController < ApplicationController
       return false
     end
   end
-
 end

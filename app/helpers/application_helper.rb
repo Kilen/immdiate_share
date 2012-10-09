@@ -1,7 +1,8 @@
 module ApplicationHelper
   def page_title title
-    return content_tag(:div, :id=>"title") do 
-      content_tag(:h3, title) +
+    return content_tag(:div, :id=>"header") do 
+      render(:partial => "shared/flash_info") +
+      content_tag(:div, title, :class=>"title") +
       content_tag(:div, :class=>"share_button") do
         link_to("new share", new_share_info_path,:class=>"large nice black button radius" )
       end +

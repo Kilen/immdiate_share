@@ -1,7 +1,7 @@
 <div class="reply">
 <div class="row reply_inside_frame">
     <div class="two columns">
-      <%= link_to(individual_path(reply.author), :method=>:get) do%>
+      <%= link_to(individual_path(reply.author), :method=>:get, :target=>"_blank") do%>
         <%= image_tag(reply.author.avatar_url, :size=>"70x70") %>
       <% end %>
     </div>
@@ -9,13 +9,13 @@
       <div class="reply_auther">
         <% if reply.author == @current_user %>
           <strong>
-            <%= link_to("you",
-                        individual_path(reply.author), :method=>:get) %>
+            <%= link_to("you", individual_path(reply.author), 
+                        :method=>:get, :target=>"_blank") %>
           </strong> replied 
         <% else %>
           <strong>
-            <%= link_to(reply.author.name,
-                        individual_path(reply.author), :method=>:get) %>
+            <%= link_to(reply.author.name, individual_path(reply.author), 
+                        :method=>:get, :target=>"_blank") %>
           </strong> replied
         <% end %>
       </div> 
@@ -27,8 +27,8 @@
         <li class="reply_link">
           <% unless @current_user == reply.author%>
             <%= link_to("reply to #{reply.author.name}", 
-                         new_reply_path(:comment_id=>reply.id, 
-                        :target_type=>"reply"), :id=>"reply_link_#{reply.id}")%>
+                        new_reply_path(:comment_id=>reply.id, :target_type=>"reply"), 
+                        :id=>"reply_link_#{reply.id}", :target=>"_blank")%>
           <% end %>
           <script type="text/javascript" charset="utf-8">
             $("#reply_link_<%=reply.id%>").attr("data-remote","true");

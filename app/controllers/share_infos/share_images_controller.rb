@@ -4,6 +4,7 @@ class ShareInfos::ShareImagesController < ApplicationController
 
   def new
     @share_image = ShareImage.new
+    my_render();
   end
   def upload
     @share_image = ShareImage.new
@@ -26,11 +27,12 @@ class ShareInfos::ShareImagesController < ApplicationController
     if ShareInfo.put_in_envolope(@share_image, @current_user, 
                                  params[:friend_ids], "image")
       flash[:success] = "successfully shared with your friends"
-      redirect_to(share_infos_path+"#share_by_you")
+      my_render({:text=>flash[:success]},
+                {:redirect_to=>true, :url=>share_infos_path+"#share_by_you"})
     else
       flash[:error] = "faild to share with your friends, please try again"
       last_uri = @share_image.from_where=="from_url" ? new_image_path : upload_path
-      render(last_uri)
+      my_render(new_image_path, {:url=>last_uri})
     end
   end
 end

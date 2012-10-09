@@ -52,14 +52,14 @@
   <% for friendship in @friendships do %>
     <div class="row friend_term">
       <div class="three columns">
-        <%= link_to( individual_path(friendship.friend), :method=>:get) do %>
+        <%= link_to( individual_path(friendship.friend), :method=>:get, :target=>"_blank") do %>
           <%= image_tag(friendship.friend.avatar_url, :width=>50,:height=>50) %>
         <% end %>
       </div>
       <div class="seven columns friend_info">
         <div class="friend_name">
-          <%= link_to("#{friendship.friend.name}", 
-                      individual_path(friendship.friend), :method=>:get) %>
+          <%= link_to("#{friendship.friend.name}", individual_path(friendship.friend), 
+                      :method=>:get, :target=>"_blank") %>
         </div>
         <% if @current_user.friends.include?(friendship.friend) %>
           <div class="friend_email">

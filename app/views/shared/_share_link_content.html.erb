@@ -12,13 +12,13 @@
   </li>
   <li class="share_link">
   <%= link_to(share.share_link.website_url,
-              "http://#{share.share_link.website_url}/") %>
+              "http://#{share.share_link.website_url}/", :target=>"_blank") %>
   </li>
   <% is_button_disable ||= false %>
   <% unless is_button_disable%>
     <li class="comment_button">
       <%= link_to("Comment", new_comment_path(:share_info_id=>share.id),
-                  :id=>"comment_button_#{share.id}",
+                  :id=>"comment_button_#{share.id}", :target=>"_blank",
                   :class=>"white nice button radius")%>
     </li>
     <script type="text/javascript" charset="utf-8">
